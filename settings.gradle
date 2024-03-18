@@ -4,3 +4,5 @@ include 'common'
 include 'bukkit'
 include 'bungeecord'
 include 'velocity'
+include 'services'
+
