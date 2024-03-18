@@ -1,4 +1,4 @@
-rootProject.name = 'BukkitEntryPoint'
+rootProject.name = 'SAPM'
 
 include 'common'
 include 'bukkit'
