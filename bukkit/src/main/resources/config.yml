@@ -1,4 +1,4 @@
-# ExamplePlugin v${version} - https://charliejoseph.com
+# ExamplePlugin v${version}
 # Welcome to the ExamplePlugin configuration file.
 
 test-message: "Hello, world!"
