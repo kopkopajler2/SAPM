@@ -1,4 +1,4 @@
-package com.popopapi.common;
+package init;
 
 public interface StartupInit {
 }

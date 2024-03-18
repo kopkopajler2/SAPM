@@ -1,9 +1,10 @@
 package com.popopapi.bukkit.init;
 
+import init.StartupInit;
 import commandhandler.BukkitCommandHandler;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class BukkitInit {
+public class BukkitInit implements StartupInit {
     private final JavaPlugin plugin;
 
     public BukkitInit(JavaPlugin plugin) {
