@@ -1,0 +1,60 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'maven-publish'
+}
+
+defaultTasks("shadowJar")
+
+group = 'com.popopapi'
+version = '1.0.0'
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'com.github.johnrengelman.shadow'
+    apply plugin: 'maven-publish'
+
+    // Add the following block
+    plugins.withId('java') {
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(8)
+            }
+        }
+    }
+
+    shadowJar {
+        archiveFileName.set("${project.name}-exampleplugin-${rootProject.version}.jar")
+    }
+
+    repositories {
+        mavenCentral()
+        maven {
+            name = "spigotmc-repo"
+            url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/groups/public/"
+        }
+        maven {
+            name = "opencollab-snapshot-repo"
+            url = "https://repo.opencollab.dev/main/"
+        }
+        maven {
+            name = "velocity-repo"
+            url = "https://nexus.velocitypowered.com/repository/maven-public/"
+        }
+    }
+
+    processResources {
+        def props = [version: rootProject.version]
+        inputs.properties props
+        filteringCharset 'UTF-8'
+        duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+        filesNotMatching("**/*.zip") {
+            expand props
+        }
+    }
+}

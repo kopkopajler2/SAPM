@@ -1,0 +1,8 @@
+name: ExamplePlugin
+version: '${version}'
+main: com.popopapi.bukkit.BukkitEntryPoint
+commands:
+  sapm:
+    description: The main command
+  check:
+    description: Check if the plugin is enabled

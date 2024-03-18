@@ -1,0 +1,3 @@
+name: ExamplePlugin
+version: '${version}'
+main: com.popopapi.bungeecord.ExamplePlugin

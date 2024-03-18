@@ -1,0 +1,15 @@
+group = rootProject.group
+version = rootProject.version
+
+dependencies {
+    implementation project(':common')
+
+    compileOnly 'org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT'
+}
+
+shadowJar {
+    configurations = [project.configurations.runtimeClasspath]
+
+    relocate 'example.lib', 'com.charliejoseph.plugin.libs.example' // Relocate this lib
+    minimize()
+}

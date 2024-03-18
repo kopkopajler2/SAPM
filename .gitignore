@@ -1,0 +1,9 @@
+.gradle/
+.idea/
+ignore/
+**/build
+**/*.iml
+**/*.jar
+**/*.zip
+.DS_Store
+**/.DS_Store
