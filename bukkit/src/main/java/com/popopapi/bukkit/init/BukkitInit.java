@@ -1,9 +1,8 @@
 package com.popopapi.bukkit.init;
 
-import init.StartupInit;
+import com.popopapi.common.init.StartupInit;
 import commandhandler.BukkitCommandHandler;
 import org.bukkit.plugin.java.JavaPlugin;
-
 public class BukkitInit implements StartupInit {
     private final JavaPlugin plugin;
 
@@ -16,4 +15,8 @@ public class BukkitInit implements StartupInit {
         plugin.getCommand("sapm").setExecutor(commandHandler);
         plugin.getCommand("sapm").setTabCompleter(commandHandler);
     }
+
+
+
+
 }

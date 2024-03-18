@@ -1,11 +1,12 @@
 package commandhandler;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import  com.popopapi.common.commands.*;
 public class BukkitCommands {
 
     public BukkitCommands(JavaPlugin plugin) {
@@ -19,6 +20,12 @@ public class BukkitCommands {
         } else if (args[0].equalsIgnoreCase("deletegroup")) {
             return true;
         } else if (args[0].equalsIgnoreCase("webeditor")) {
+            //send message to player
+            if (sender instanceof Player) {
+                Player player = (Player) sender;
+                player.sendMessage("Opening web editor...");
+            }
+
             return true;
         } else if (args[0].equalsIgnoreCase("group")) {
             return handleGroupCommand(sender, args);
