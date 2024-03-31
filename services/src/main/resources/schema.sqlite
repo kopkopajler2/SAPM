@@ -1,0 +1,79 @@
+-- Create the 'players' table
+
+CREATE TABLE players (
+
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+uuid TEXT UNIQUE,
+
+username TEXT
+
+);
+
+-- Create the 'groups' table
+
+CREATE TABLE groups (
+
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+name TEXT UNIQUE
+
+);
+
+-- Create the 'player_groups' table to establish the many-to-many relationship between players and groups
+
+CREATE TABLE player_groups (
+
+player_id INTEGER,
+
+group_id INTEGER,
+
+PRIMARY KEY (player_id, group_id),
+
+FOREIGN KEY (player_id) REFERENCES players (id),
+
+FOREIGN KEY (group_id) REFERENCES groups (id)
+
+);
+
+-- Create the 'permissions' table
+
+CREATE TABLE permissions (
+
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+permission TEXT UNIQUE
+
+);
+
+-- Create the 'player_permissions' table to establish the many-to-many relationship between players and permissions
+
+CREATE TABLE player_permissions (
+
+player_id INTEGER,
+
+permission_id INTEGER,
+
+PRIMARY KEY (player_id, permission_id),
+
+FOREIGN KEY (player_id) REFERENCES players (id),
+
+FOREIGN KEY (permission_id) REFERENCES permissions (id)
+
+);
+
+-- Create the 'group_permissions' table to establish the many-to-many relationship between groups and permissions
+
+CREATE TABLE group_permissions (
+
+group_id INTEGER,
+
+permission_id INTEGER,
+
+PRIMARY KEY (group_id, permission_id),
+
+FOREIGN KEY (group_id) REFERENCES groups (id),
+
+FOREIGN KEY (permission_id) REFERENCES permissions (id)
+
+);
