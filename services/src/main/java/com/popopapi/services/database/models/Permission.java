@@ -1,6 +1,6 @@
 package com.popopapi.services.database.models;
 
-public class Permission {
+ public class Permission {
     private Integer id;
     private String permission;
 

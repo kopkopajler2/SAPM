@@ -1,6 +1,6 @@
 package com.popopapi.services.database.models;
 
-public class PlayerPermission {
+ public class PlayerPermission {
     private Integer playerId;
     private Integer permissionId;
 

@@ -1,6 +1,6 @@
 package com.popopapi.services.database.models;
 
-public class GroupPermission {
+ public class GroupPermission {
     private Integer groupId;
     private Integer permissionId;
 

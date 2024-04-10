@@ -1,6 +1,6 @@
 package com.popopapi.services.database.models;
 
-public class Player {
+ public class Player {
     private Integer id;
     private String uuid;
     private String username;

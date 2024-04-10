@@ -1,6 +1,6 @@
 package com.popopapi.services.database.models;
 
-public class PlayerGroup {
+ public class PlayerGroup {
     private Integer playerId;
     private Integer groupId;
 

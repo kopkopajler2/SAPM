@@ -1,6 +1,6 @@
 package com.popopapi.services.database.models;
 
-public class Group {
+ public class Group {
     private Integer id;
 
     private String name;

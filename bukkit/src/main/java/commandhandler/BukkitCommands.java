@@ -21,8 +21,7 @@ public class BukkitCommands {
             return true;
         } else if (args[0].equalsIgnoreCase("webeditor")) {
             //send message to player
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
+            if (sender instanceof Player player) {
                 player.sendMessage("Opening web editor...");
             }
 
