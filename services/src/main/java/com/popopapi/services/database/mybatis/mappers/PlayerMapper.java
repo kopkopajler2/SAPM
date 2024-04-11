@@ -1,4 +1,4 @@
-package com.popopapi.services.database.mybatis;
+package com.popopapi.services.database.mybatis.mappers;
 import com.popopapi.services.database.models.Player;
 import java.util.List;
 public interface PlayerMapper {

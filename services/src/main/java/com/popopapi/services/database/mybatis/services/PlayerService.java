@@ -1,6 +1,8 @@
-package com.popopapi.services.database.mybatis;
+package com.popopapi.services.database.mybatis.services;
 
 import com.popopapi.services.database.models.Player;
+import com.popopapi.services.database.mybatis.DatabaseUtils;
+import com.popopapi.services.database.mybatis.mappers.PlayerMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 

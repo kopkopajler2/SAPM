@@ -20,7 +20,9 @@ dependencies {
 
 
 }
-
+processResources {
+    exclude '**/Databases/sapm.db'
+}
 test {
     useJUnitPlatform()
 }

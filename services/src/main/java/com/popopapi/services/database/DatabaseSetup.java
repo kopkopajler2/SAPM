@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
- class DatabaseSetup {
+ public class DatabaseSetup {
     private static final String DB_NAME = "sapm.db";
     private static final String DB_URL = "jdbc:sqlite:./services/src/main/resources/Databases/" + DB_NAME;
     public static void createDatabaseAndTables() {

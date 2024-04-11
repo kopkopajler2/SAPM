@@ -10,6 +10,7 @@ public class BukkitEntryPoint extends JavaPlugin {
         saveDefaultConfig();
         BukkitInit bukkitInit = new BukkitInit(this);
         bukkitInit.initCommands();
+        bukkitInit.CreateDatabase();
         //send message to console
         getLogger().info("SAPM has been enabled!");
     }

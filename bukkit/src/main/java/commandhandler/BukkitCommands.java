@@ -6,6 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+impo
 import  com.popopapi.common.commands.*;
 public class BukkitCommands {
 
@@ -16,6 +17,7 @@ public class BukkitCommands {
         if (args.length == 0) {
             return true;
         } else if (args[0].equalsIgnoreCase("creategroup")) {
+
             return true;
         } else if (args[0].equalsIgnoreCase("deletegroup")) {
             return true;
@@ -55,9 +57,7 @@ public class BukkitCommands {
                 return true;
             } else if (args[3].equalsIgnoreCase("remove")) {
                 return true;
-            } else if (args[3].equalsIgnoreCase("show")) {
-                return true;
-            }
+            } else return args[3].equalsIgnoreCase("show");
         }
         return false;
     }
