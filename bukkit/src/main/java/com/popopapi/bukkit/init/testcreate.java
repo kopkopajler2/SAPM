@@ -1,6 +1,4 @@
-package com.popopapi.services.database;
-
-import com.popopapi.logger.MinecraftLogger;
+package com.popopapi.bukkit.init;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,22 +7,24 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.bukkit.plugin.java.JavaPlugin;
 
 
-public class DatabaseSetup  {
+public class testcreate  {
+    private JavaPlugin plugin;
     private static final String DB_NAME = "sapm.db";
     private static final String PLUGINS_DIR = "plugins";
     private static final String PLUGIN_NAME = "SpigotAdvancedPermissionManager";
     private static final String DB_DIR = Paths.get(PLUGINS_DIR, PLUGIN_NAME).toString();
     private static final String DB_URL = "jdbc:sqlite:" + Paths.get(DB_DIR, DB_NAME).toString();
 
-    public DatabaseSetup()
+    public testcreate(JavaPlugin plugin)
     {
-
+        this.plugin = plugin;
         createDatabaseAndTables();
     }
     public  void createDatabaseAndTables() {
-         MinecraftLogger.debug ("DB URL: " + DB_URL);
+         plugin.getLogger().info("DB URL: " + DB_URL);
 
         try {
             // Create the directory if it doesn't exist
@@ -38,7 +38,7 @@ public class DatabaseSetup  {
         try (Connection connection = DriverManager.getConnection(DB_URL);
              Statement statement = connection.createStatement()) {
             if (connection.isValid(5)) {  // Check if connection is valid within 5 seconds
-                MinecraftLogger.info("Connection is valid!");
+                plugin.getLogger().info("Connection is valid!");
             } else {
                 throw new SQLException("Connection is not valid!");
             }
@@ -86,9 +86,9 @@ public class DatabaseSetup  {
                     "FOREIGN KEY (permission_id) REFERENCES permissions (id)" +
                     ");");
 
-            MinecraftLogger.info("Database and tables created successfully.");
+            plugin.getLogger().info("Database and tables created successfully.");
         } catch (SQLException e) {
-            MinecraftLogger.error("Error creating database and tables: " + e.getMessage());
+            plugin.getLogger().info("Error creating database and tables: " + e.getMessage());
         }
     }
 

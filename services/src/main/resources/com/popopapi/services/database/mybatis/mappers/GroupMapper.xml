@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.popopapi.services.database.mappers.GroupMapper">
+<mapper namespace="com.popopapi.services.database.mybatis.mappers.GroupMapper">
 
     <resultMap id="GroupResultMap" type="com.popopapi.services.database.models.Group">
         <id property="id" column="id"/>

@@ -8,6 +8,8 @@ public class BukkitInit implements StartupInit {
 
     public BukkitInit(JavaPlugin plugin) {
         this.plugin = plugin;
+        initCommands();
+        CreateDatabase();
     }
 
     public void initCommands() {

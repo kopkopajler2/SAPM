@@ -3,7 +3,7 @@ package commandhandler;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
+import com.popopapi.common.commands.CreateGroupCommand;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,11 @@ public class BukkitCommands {
         if (args.length == 0) {
             return true;
         } else if (args[0].equalsIgnoreCase("creategroup")) {
-
+            CreateGroupCommand createGroupCommand = new CreateGroupCommand();
+            createGroupCommand.createGroup("testgroup");
+            if (sender instanceof Player player) {
+                player.sendMessage("Group created ");
+            }
             return true;
         } else if (args[0].equalsIgnoreCase("deletegroup")) {
             return true;
