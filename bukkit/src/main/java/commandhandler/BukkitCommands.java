@@ -54,9 +54,8 @@ public class BukkitCommands {
 
 
             return true;
-        } else if (args[0].equalsIgnoreCase("group")) {
-            return handleGroupCommand(sender, args);
         }
+
 
         else if (args[0].equalsIgnoreCase("group")) {
             if (args.length >= 4 && args[2].equalsIgnoreCase("addplayer")) {
