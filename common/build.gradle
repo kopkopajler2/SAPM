@@ -9,6 +9,6 @@ dependencies {
     implementation 'javax.websocket:javax.websocket-api:1.1'
     implementation 'org.mybatis:mybatis:3.5.6'
 
-    implementation project(':services')
+
 }
 

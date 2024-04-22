@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.popopapi.common.services.database.mybatis.mappers.GroupMapper">
+
+    <resultMap id="GroupResultMap" type="com.popopapi.common.services.database.models.Group">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <insert id="createGroup" parameterType="com.popopapi.common.services.database.models.Group">
+        INSERT INTO groups (name)
+        VALUES (#{name})
+    </insert>
+
+    <select id="getGroupById" parameterType="java.lang.Integer" resultMap="GroupResultMap">
+        SELECT * FROM groups WHERE id = #{id}
+    </select>
+
+    <select id="getGroupByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM groups WHERE name = #{name}
+    </select>
+
+    <select id="getAllGroups" resultMap="GroupResultMap">
+        SELECT * FROM groups
+    </select>
+    <select id="getAllGroupNames" resultType="java.lang.String">
+        SELECT name FROM groups
+    </select>
+
+    <update id="updateGroup" parameterType="com.popopapi.common.services.database.models.Group">
+        UPDATE groups
+        SET name = #{name}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteGroup" parameterType="java.lang.Integer">
+        DELETE FROM groups WHERE id = #{id}
+    </delete>
+    <delete id="deleteGroupByName" parameterType="java.lang.String">
+        DELETE FROM groups WHERE name = #{name}
+    </delete>
+
+</mapper>
