@@ -16,4 +16,8 @@ public interface PlayerMapper {
 
 
     List<String> getPlayerPermissions(String uuid);
+    //get all player names
+    List<String> getAllPlayerNames();
+    //get player id by name
+    Integer getPlayerIdByName(String playerName);
 }

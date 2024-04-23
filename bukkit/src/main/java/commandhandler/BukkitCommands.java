@@ -1,19 +1,18 @@
 package commandhandler;
 
 import com.popopapi.bukkit.implementations.BukkitGetAllPermissions;
-import com.popopapi.common.commands.DeleteGroupCommand;
-import com.popopapi.common.commands.GetAllGroupNamesCommand;
+import com.popopapi.common.commands.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.popopapi.common.commands.CreateGroupCommand;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class BukkitCommands {
     private final GetAllGroupNamesCommand getAllGroupNamesCommand = new GetAllGroupNamesCommand();
-
+    private final GetAllPlayerNamesCommand getAllPlayerNamesCommand = new GetAllPlayerNamesCommand();
     public BukkitCommands(JavaPlugin plugin) {
     }
 
@@ -84,9 +83,11 @@ public class BukkitCommands {
         return false;
     }
     private boolean addPlayerToGroup(String groupName, String playerName) {
-        // Implement the logic to add a player to a group
-        // Return true if successful, false otherwise
-        return false;
+        AddPlayerToGroupCommand addPlayerToGroupCommand = new AddPlayerToGroupCommand();
+        return addPlayerToGroupCommand.bukkitAddPlayerToGroup(playerName, groupName);
+
+
+
     }
 
     private boolean deletePlayerFromGroup(String groupName, String playerName) {
@@ -131,9 +132,7 @@ public class BukkitCommands {
             list.add("webeditor");
             list.add("group");
         } else if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("deletegroup")) {
-                list.addAll(getAllGroupNamesCommand.getAllGroupNames());
-            } else if (args[0].equalsIgnoreCase("group")) {
+            if (args[0].equalsIgnoreCase("deletegroup") || args[0].equalsIgnoreCase("group")) {
                 list.addAll(getAllGroupNamesCommand.getAllGroupNames());
             }
         } else if (args.length == 3 && args[0].equalsIgnoreCase("group")) {
@@ -143,10 +142,14 @@ public class BukkitCommands {
             list.add("permission");
             list.add("addplayer");
             list.add("deleteplayer");
-        } else if (args.length == 4 && args[0].equalsIgnoreCase("group") && args[2].equalsIgnoreCase("permission")) {
-            list.add("add");
-            list.add("remove");
-            list.add("show");
+        } else if (args.length == 4 && args[0].equalsIgnoreCase("group")) {
+            if (args[2].equalsIgnoreCase("addplayer") || args[2].equalsIgnoreCase("deleteplayer")) {
+                list.addAll(getAllPlayerNamesCommand.getAllPlayerNames());
+            } else if (args[2].equalsIgnoreCase("permission")) {
+                list.add("add");
+                list.add("remove");
+                list.add("show");
+            }
         }
         return list;
     }

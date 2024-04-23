@@ -7,7 +7,7 @@
 
     <insert id="addPlayerToGroup">
         INSERT INTO player_groups (player_id, group_id)
-        VALUES (#{playerId}, #{groupId})
+        VALUES (#{playerId, jdbcType=INTEGER}, #{groupId, jdbcType=INTEGER})
     </insert>
 
     <delete id="removePlayerFromGroup">
@@ -26,5 +26,12 @@
         FROM player_groups
         WHERE player_id = #{playerId}
     </select>
+    <select id="getPlayerGroupByName" resultType="java.lang.Integer">
+        SELECT id
+        FROM groups
+        WHERE name = #{groupName}
+    </select>
+
+
 
 </mapper>

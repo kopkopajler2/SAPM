@@ -72,7 +72,7 @@ public class PlayerGroupService implements PlayerGroupMapper{
         }
     }
 
-    public int getPlayerGroupByName(String name) {
+    public Integer getPlayerGroupByName(String name) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             PlayerGroupMapper playerGroupMapper = sqlSession.getMapper(PlayerGroupMapper.class);
@@ -85,6 +85,16 @@ public class PlayerGroupService implements PlayerGroupMapper{
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             PlayerGroupMapper playerGroupMapper = sqlSession.getMapper(PlayerGroupMapper.class);
             return playerGroupMapper.getGroupIdsByPlayerId(playerId);
+        }
+    }
+
+    public boolean addPlayerToGroup(Integer playerId, Integer groupId) {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            PlayerGroupMapper playerGroupMapper = sqlSession.getMapper(PlayerGroupMapper.class);
+            boolean result = playerGroupMapper.addPlayerToGroup(playerId, groupId);
+            sqlSession.commit();
+            return result;
         }
     }
 }

@@ -19,6 +19,9 @@
     <select id="getPlayerByName" parameterType="java.lang.String" resultType="com.popopapi.common.services.database.models.Player">
         SELECT * FROM players WHERE username = #{username}
     </select>
+    <select id="getAllPlayerNames" resultType="java.lang.String">
+        SELECT username FROM players
+    </select>
 
     <update id="updatePlayer" parameterType="com.popopapi.common.services.database.models.Player">
         UPDATE players
@@ -31,5 +34,8 @@
     </delete>
     <select id="getPlayerIdByUUID" parameterType="java.lang.String" resultType="java.lang.Integer">
         SELECT id FROM players WHERE uuid = #{uuid}
+    </select>
+    <select id="getPlayerIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT id FROM players WHERE username = #{username}
     </select>
 </mapper>

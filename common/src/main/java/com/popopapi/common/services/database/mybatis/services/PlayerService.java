@@ -39,4 +39,20 @@ public class PlayerService {
             return playerMapper.getPlayerIdByUUID(uuid);
         }
     }
+    //get all player names
+    public List<String> getAllPlayerNames() {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            PlayerMapper playerMapper = sqlSession.getMapper(PlayerMapper.class);
+            return playerMapper.getAllPlayerNames();
+        }
+    }
+
+    public Integer getPlayerIdByName(String playerName) {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            PlayerMapper playerMapper = sqlSession.getMapper(PlayerMapper.class);
+            return playerMapper.getPlayerIdByName(playerName);
+        }
+    }
 }
