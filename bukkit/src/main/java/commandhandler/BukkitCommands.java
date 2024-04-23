@@ -13,6 +13,7 @@ import java.util.List;
 public class BukkitCommands {
     private final GetAllGroupNamesCommand getAllGroupNamesCommand = new GetAllGroupNamesCommand();
     private final GetAllPlayerNamesCommand getAllPlayerNamesCommand = new GetAllPlayerNamesCommand();
+    private final GetAllPermissionNamesCommand getAllPermissionNamesCommand = new GetAllPermissionNamesCommand();
     public BukkitCommands(JavaPlugin plugin) {
     }
 
@@ -164,6 +165,8 @@ public class BukkitCommands {
                 list.add("remove");
                 list.add("show");
             }
+        } else if (args.length == 5 && args[0].equalsIgnoreCase("group") && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("add")) {
+            list.addAll(getAllPermissionNamesCommand.getAllPermissionNames());
         }
         return list;
     }

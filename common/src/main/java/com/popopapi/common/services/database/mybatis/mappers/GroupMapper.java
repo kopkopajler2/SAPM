@@ -6,11 +6,13 @@ import com.popopapi.common.services.database.models.Group;
 
 public interface GroupMapper {
     boolean createGroup(Group group);
-    Group getGroupById(Integer id);
-    List<Group> getAllGroups();
+    //Group getGroupById(Integer id);
+    //List<Group> getAllGroups();
     List<String> getAllGroupNames();
-    void updateGroup(Group group);
+    //void updateGroup(Group group);
     boolean deleteGroup(Integer id);
     boolean deleteGroupByName(String group);
+
     int getGroupByName(String name);
+    //int getGroupByName(String name);
 }

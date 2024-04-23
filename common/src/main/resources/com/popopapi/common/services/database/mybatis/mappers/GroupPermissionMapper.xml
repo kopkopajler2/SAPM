@@ -27,5 +27,11 @@
         WHERE group_id NOT IN (0)
     </select>
 
+    <select id="isPermissionAssignedToGroup" resultType="java.lang.Boolean">
+        SELECT COUNT(*) > 0
+        FROM group_permissions
+        WHERE group_id = #{groupId} AND permission_id = #{permissionId}
+    </select>
+
 
 </mapper>

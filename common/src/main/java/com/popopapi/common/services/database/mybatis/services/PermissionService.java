@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import java.util.List;
 
-public class PermissionService {
+public class PermissionService implements PermissionMapper{
     public boolean createPermission(Permission permission) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
@@ -19,6 +19,16 @@ public class PermissionService {
             sqlSession.commit();
             return result;
         }
+    }
+
+    @Override
+    public Permission getPermissionById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public List<Permission> getAllPermissions() {
+        return List.of();
     }
 
     public boolean deletePermission(Integer id) {
@@ -41,6 +51,16 @@ public class PermissionService {
         }
     }
 
+    @Override
+    public int getPermissionByName(String name) {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            PermissionMapper permissionMapper = sqlSession.getMapper(PermissionMapper.class);
+            return permissionMapper.getPermissionByName(name);
+        }
+
+    }
+
     public int getPermissionCountByName(String name) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
@@ -55,5 +75,10 @@ public class PermissionService {
             PermissionMapper permissionMapper = sqlSession.getMapper(PermissionMapper.class);
             return permissionMapper.getAllPermissionNames();
         }
+    }
+
+    @Override
+    public void updatePermission(Permission permission) {
+
     }
 }

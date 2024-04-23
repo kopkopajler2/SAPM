@@ -20,7 +20,7 @@
     </select>
 
     <select id="getPermissionByName" parameterType="java.lang.String" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM permissions WHERE permission = #{permission}
+        SELECT id FROM permissions WHERE permission = #{permission}
     </select>
 
     <select id="getAllPermissions" resultMap="PermissionResultMap">

@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.util.List;
 
-public class GroupService {
+public class GroupService implements GroupMapper{
     public boolean createGroup(Group group) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
@@ -32,7 +32,7 @@ public class GroupService {
         }
     }
     public boolean deleteGroupByName(String group) {
-SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             GroupMapper groupMapper = sqlSession.getMapper(GroupMapper.class);
             boolean result = groupMapper.deleteGroupByName(group);
@@ -55,6 +55,15 @@ SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             GroupMapper groupMapper = sqlSession.getMapper(GroupMapper.class);
             return groupMapper.getAllGroupNames();
+        }
+    }
+
+
+    public int getGroupByName(String name) {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            GroupMapper groupMapper = sqlSession.getMapper(GroupMapper.class);
+            return groupMapper.getGroupByName(name);
         }
     }
 }

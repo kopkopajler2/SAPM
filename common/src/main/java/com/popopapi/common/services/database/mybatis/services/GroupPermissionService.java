@@ -43,4 +43,12 @@ public class GroupPermissionService implements GroupPermissionMapper {
             return groupPermissionMapper.getPermissionIdsByGroupIds(groupIds);
         }
     }
+
+    public boolean isPermissionAssignedToGroup(Integer groupId, Integer permissionId) {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            GroupPermissionMapper groupPermissionMapper = sqlSession.getMapper(GroupPermissionMapper.class);
+            return groupPermissionMapper.isPermissionAssignedToGroup(groupId, permissionId);
+        }
+    }
 }
