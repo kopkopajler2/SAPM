@@ -28,12 +28,24 @@ public class GroupPermissionService implements GroupPermissionMapper {
         }
     }
 
-    public List<Integer> getGroupPermissions(int groupId) {
+    @Override
+    public boolean removePermissionFromGroupByName(String groupName, String permission) {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            GroupPermissionMapper groupPermissionMapper = sqlSession.getMapper(GroupPermissionMapper.class);
+            boolean result = groupPermissionMapper.removePermissionFromGroupByName(groupName, permission);
+            sqlSession.commit();
+            return result;
+        }
+    }
+
+    public List<String> getGroupPermissions(int groupId) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             GroupPermissionMapper groupPermissionMapper = sqlSession.getMapper(GroupPermissionMapper.class);
             return groupPermissionMapper.getGroupPermissions(groupId);
         }
+
     }
 
     public List<Integer> getPermissionIdsByGroupIds(List<Integer> groupIds) {
@@ -44,6 +56,7 @@ public class GroupPermissionService implements GroupPermissionMapper {
         }
     }
 
+
     public boolean isPermissionAssignedToGroup(Integer groupId, Integer permissionId) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
@@ -51,4 +64,12 @@ public class GroupPermissionService implements GroupPermissionMapper {
             return groupPermissionMapper.isPermissionAssignedToGroup(groupId, permissionId);
         }
     }
+    public List<String>getGroupPermissionsByGroupName(String groupName){
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            GroupPermissionMapper groupPermissionMapper = sqlSession.getMapper(GroupPermissionMapper.class);
+            return groupPermissionMapper.getGroupPermissionsByGroupName(groupName);
+        }
+    }
+
 }

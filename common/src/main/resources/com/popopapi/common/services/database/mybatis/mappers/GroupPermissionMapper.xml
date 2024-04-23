@@ -15,10 +15,11 @@
         WHERE group_id = #{groupId} AND permission_id = #{permissionId}
     </delete>
 
-    <select id="getGroupPermissions" resultType="java.lang.Integer">
-        SELECT permission_id
-        FROM group_permissions
-        WHERE group_id = #{groupId}
+    <select id="getGroupPermissions" resultType="java.lang.String">
+        SELECT p.name
+        FROM group_permissions gp
+        JOIN permissions p ON gp.permission_id = p.id
+        WHERE gp.group_id = #{groupId}
     </select>
 
     <select id="getPermissionIdsByGroupIds" resultType="java.lang.Integer">
@@ -32,6 +33,22 @@
         FROM group_permissions
         WHERE group_id = #{groupId} AND permission_id = #{permissionId}
     </select>
+
+    <select id="getGroupPermissionsByGroupName" resultType="java.lang.String">
+        SELECT p.permission
+        FROM groups g
+        JOIN group_permissions gp ON g.id = gp.group_id
+        JOIN permissions p ON gp.permission_id = p.id
+        WHERE g.name = #{groupName}
+    </select>
+
+
+    <delete id="removePermissionFromGroupByName">
+        DELETE FROM group_permissions
+        WHERE group_id = (SELECT id FROM groups WHERE name = #{groupName})
+        AND permission_id = (SELECT id FROM permissions WHERE permission = #{permission})
+    </delete>
+
 
 
 </mapper>

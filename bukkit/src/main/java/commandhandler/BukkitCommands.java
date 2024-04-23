@@ -14,6 +14,8 @@ public class BukkitCommands {
     private final GetAllGroupNamesCommand getAllGroupNamesCommand = new GetAllGroupNamesCommand();
     private final GetAllPlayerNamesCommand getAllPlayerNamesCommand = new GetAllPlayerNamesCommand();
     private final GetAllPermissionNamesCommand getAllPermissionNamesCommand = new GetAllPermissionNamesCommand();
+    private final GetGroupPermissionsCommand getGroupPermissionsCommand = new GetGroupPermissionsCommand();
+    private  final RemovePermissionFromGroupCommand removePermissionFromGroupCommand = new RemovePermissionFromGroupCommand();
     public BukkitCommands(JavaPlugin plugin) {
     }
 
@@ -86,6 +88,16 @@ public class BukkitCommands {
                     sender.sendMessage("Permission " + permission + " added to group " + groupName);
                 } else {
                     sender.sendMessage("Failed to add permission " + permission + " to group " + groupName);
+                }
+                return true;
+            }else if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("remove")) {
+                String groupName = args[1];
+                String permission = args[4];
+                // Remove permission from the group
+                if (removePermissionFromGroupCommand.removePermissionFromGroup(groupName, permission)) {
+                    sender.sendMessage("Permission " + permission + " removed from group " + groupName);
+                } else {
+                    sender.sendMessage("Failed to remove permission " + permission + " from group " + groupName);
                 }
                 return true;
             }
@@ -165,8 +177,13 @@ public class BukkitCommands {
                 list.add("remove");
                 list.add("show");
             }
-        } else if (args.length == 5 && args[0].equalsIgnoreCase("group") && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("add")) {
-            list.addAll(getAllPermissionNamesCommand.getAllPermissionNames());
+        } else if (args.length == 5 && args[0].equalsIgnoreCase("group") && args[2].equalsIgnoreCase("permission")) {
+            if (args[3].equalsIgnoreCase("add")) {
+                list.addAll(getAllPermissionNamesCommand.getAllPermissionNames());
+            } else if (args[3].equalsIgnoreCase("remove")) {
+                String groupName = args[1];
+                list.addAll(getGroupPermissionsCommand.getGroupPermissions(groupName));
+            }
         }
         return list;
     }
