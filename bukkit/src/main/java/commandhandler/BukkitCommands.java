@@ -77,10 +77,25 @@ public class BukkitCommands {
                     sender.sendMessage("Failed to delete player " + playerName + " from group " + groupName);
                 }
                 return true;
+            } else if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("add")) {
+                String groupName = args[1];
+                String permission = args[4];
+                // Add permission to the group
+                if (addPermissionToGroup(groupName, permission)) {
+                    sender.sendMessage("Permission " + permission + " added to group " + groupName);
+                } else {
+                    sender.sendMessage("Failed to add permission " + permission + " to group " + groupName);
+                }
+                return true;
             }
             return handleGroupCommand(sender, args);
         }
         return false;
+    }
+
+    private boolean addPermissionToGroup(String groupName, String permission) {
+        AddPermissionToGroupCommand addPermissionToGroupCommand = new AddPermissionToGroupCommand();
+        return addPermissionToGroupCommand.bukkitAddPermissionToGroup(groupName, permission);
     }
     private boolean addPlayerToGroup(String groupName, String playerName) {
         AddPlayerToGroupCommand addPlayerToGroupCommand = new AddPlayerToGroupCommand();
@@ -91,9 +106,8 @@ public class BukkitCommands {
     }
 
     private boolean deletePlayerFromGroup(String groupName, String playerName) {
-        // Implement the logic to delete a player from a group
-        // Return true if successful, false otherwise
-        return false;
+        DeletePlayerFromGroupCommand deletePlayerFromGroupCommand = new DeletePlayerFromGroupCommand();
+        return deletePlayerFromGroupCommand.bukkitDeletePlayerFromGroup(playerName, groupName);
     }
 
     private boolean handleGroupCommand(CommandSender sender, String[] args) {

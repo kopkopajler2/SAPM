@@ -1,6 +1,5 @@
 package com.popopapi.common.services.database;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -8,22 +7,22 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import com.popopapi.common.services.logger.MinecraftLogger;
 
-public class DatabaseSetup  {
+public class DatabaseSetup {
     private static final String DB_NAME = "sapm.db";
     private static final String PLUGINS_DIR = "plugins";
     private static final String PLUGIN_NAME = "SpigotAdvancedPermissionManager";
     private static final String DB_DIR = Paths.get(PLUGINS_DIR, PLUGIN_NAME).toString();
     private static final String DB_URL = "jdbc:sqlite:" + Paths.get(DB_DIR, DB_NAME);
 
-    public DatabaseSetup()
-    {
-
+    public DatabaseSetup() {
         createDatabaseAndTables();
     }
-    public  void createDatabaseAndTables() {
-         MinecraftLogger.debug ("DB URL: " + DB_URL,true);
+
+    public void createDatabaseAndTables() {
+        MinecraftLogger.debug("DB URL: " + DB_URL, true);
 
         try {
             // Create the directory if it doesn't exist
@@ -36,24 +35,26 @@ public class DatabaseSetup  {
 
         try (Connection connection = DriverManager.getConnection(DB_URL);
              Statement statement = connection.createStatement()) {
-            if (connection.isValid(5)) {  // Check if connection is valid within 5 seconds
+            if (connection.isValid(5)) {
+                // Check if connection is valid within 5 seconds
                 MinecraftLogger.info("Connection is valid!");
             } else {
                 throw new SQLException("Connection is not valid!");
             }
+
             // Enable foreign keys
             statement.execute("PRAGMA foreign_keys = ON;");
 
             // Create tables
             statement.execute("CREATE TABLE IF NOT EXISTS players (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "uuid TEXT UNIQUE," +
-                    "username TEXT" +
+                    "uuid TEXT UNIQUE NOT NULL," +
+                    "username TEXT NOT NULL" +
                     ");");
 
             statement.execute("CREATE TABLE IF NOT EXISTS groups (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "name TEXT UNIQUE" +
+                    "name TEXT UNIQUE NOT NULL" +
                     ");");
 
             statement.execute("CREATE TABLE IF NOT EXISTS player_groups (" +
@@ -66,7 +67,7 @@ public class DatabaseSetup  {
 
             statement.execute("CREATE TABLE IF NOT EXISTS permissions (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "permission TEXT UNIQUE" +
+                    "permission TEXT UNIQUE NOT NULL" +
                     ");");
 
             statement.execute("CREATE TABLE IF NOT EXISTS player_permissions (" +
@@ -87,9 +88,7 @@ public class DatabaseSetup  {
 
             MinecraftLogger.info("Database and tables created successfully.");
         } catch (SQLException e) {
-            MinecraftLogger.error("Error creating database and tables: " + e.getMessage(),true);
+            MinecraftLogger.error("Error creating database and tables: " + e.getMessage(), true);
         }
     }
-
-
 }

@@ -89,10 +89,25 @@ public class PlayerGroupService implements PlayerGroupMapper{
     }
 
     public boolean addPlayerToGroup(Integer playerId, Integer groupId) {
+        boolean result = false;
+        if(playerId == null || groupId == null) {
+            return result;
+        }
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             PlayerGroupMapper playerGroupMapper = sqlSession.getMapper(PlayerGroupMapper.class);
-            boolean result = playerGroupMapper.addPlayerToGroup(playerId, groupId);
+             result = playerGroupMapper.addPlayerToGroup(playerId, groupId);
+            sqlSession.commit();
+            return result;
+        }
+    }
+
+
+    public boolean deletePlayerFromGroup(Integer playerId, Integer groupId) {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            PlayerGroupMapper playerGroupMapper = sqlSession.getMapper(PlayerGroupMapper.class);
+            boolean result = playerGroupMapper.deletePlayerFromGroup(playerId, groupId);
             sqlSession.commit();
             return result;
         }

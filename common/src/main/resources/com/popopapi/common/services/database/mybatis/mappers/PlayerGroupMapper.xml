@@ -6,7 +6,7 @@
 <mapper namespace="com.popopapi.common.services.database.mybatis.mappers.PlayerGroupMapper">
 
     <insert id="addPlayerToGroup">
-        INSERT INTO player_groups (player_id, group_id)
+        INSERT OR IGNORE INTO player_groups (player_id, group_id)
         VALUES (#{playerId, jdbcType=INTEGER}, #{groupId, jdbcType=INTEGER})
     </insert>
 
@@ -31,6 +31,11 @@
         FROM groups
         WHERE name = #{groupName}
     </select>
+
+    <delete id="deletePlayerFromGroup">
+        DELETE FROM player_groups
+        WHERE player_id = #{playerId}
+    </delete>
 
 
 
