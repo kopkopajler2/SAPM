@@ -178,6 +178,7 @@ public class BukkitCommands {
                 list.add("show");
             }
         } else if (args.length == 5 && args[0].equalsIgnoreCase("group") && args[2].equalsIgnoreCase("permission")) {
+            new BukkitGetAllPermissions();
             if (args[3].equalsIgnoreCase("add")) {
                 list.addAll(getAllPermissionNamesCommand.getAllPermissionNames());
             } else if (args[3].equalsIgnoreCase("remove")) {

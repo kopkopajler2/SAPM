@@ -35,56 +35,60 @@ public class DatabaseSetup {
 
         try (Connection connection = DriverManager.getConnection(DB_URL);
              Statement statement = connection.createStatement()) {
-            if (connection.isValid(5)) {
-                // Check if connection is valid within 5 seconds
-                MinecraftLogger.info("Connection is valid!");
-            } else {
+            if (!connection.isValid(5)) {
                 throw new SQLException("Connection is not valid!");
             }
+            MinecraftLogger.info("Connection is valid!");
 
             // Enable foreign keys
             statement.execute("PRAGMA foreign_keys = ON;");
 
             // Create tables
-            statement.execute("CREATE TABLE IF NOT EXISTS players (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "uuid TEXT UNIQUE NOT NULL," +
-                    "username TEXT NOT NULL" +
-                    ");");
+            statement.execute("""
+                CREATE TABLE IF NOT EXISTS players (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    uuid TEXT UNIQUE NOT NULL,
+                    username TEXT NOT NULL
+                );""");
 
-            statement.execute("CREATE TABLE IF NOT EXISTS groups (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "name TEXT UNIQUE NOT NULL" +
-                    ");");
+            statement.execute("""
+                CREATE TABLE IF NOT EXISTS groups (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT UNIQUE NOT NULL
+                );""");
 
-            statement.execute("CREATE TABLE IF NOT EXISTS player_groups (" +
-                    "player_id INTEGER," +
-                    "group_id INTEGER," +
-                    "PRIMARY KEY (player_id, group_id)," +
-                    "FOREIGN KEY (player_id) REFERENCES players (id)," +
-                    "FOREIGN KEY (group_id) REFERENCES groups (id)" +
-                    ");");
+            statement.execute("""
+                CREATE TABLE IF NOT EXISTS player_groups (
+                    player_id INTEGER,
+                    group_id INTEGER,
+                    PRIMARY KEY (player_id, group_id),
+                    FOREIGN KEY (player_id) REFERENCES players (id),
+                    FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE CASCADE
+                );""");
 
-            statement.execute("CREATE TABLE IF NOT EXISTS permissions (" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "permission TEXT UNIQUE NOT NULL" +
-                    ");");
+            statement.execute("""
+                CREATE TABLE IF NOT EXISTS permissions (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    permission TEXT UNIQUE NOT NULL
+                );""");
 
-            statement.execute("CREATE TABLE IF NOT EXISTS player_permissions (" +
-                    "player_id INTEGER," +
-                    "permission_id INTEGER," +
-                    "PRIMARY KEY (player_id, permission_id)," +
-                    "FOREIGN KEY (player_id) REFERENCES players (id)," +
-                    "FOREIGN KEY (permission_id) REFERENCES permissions (id)" +
-                    ");");
+            statement.execute("""
+                CREATE TABLE IF NOT EXISTS player_permissions (
+                    player_id INTEGER,
+                    permission_id INTEGER,
+                    PRIMARY KEY (player_id, permission_id),
+                    FOREIGN KEY (player_id) REFERENCES players (id),
+                    FOREIGN KEY (permission_id) REFERENCES permissions (id)
+                );""");
 
-            statement.execute("CREATE TABLE IF NOT EXISTS group_permissions (" +
-                    "group_id INTEGER," +
-                    "permission_id INTEGER," +
-                    "PRIMARY KEY (group_id, permission_id)," +
-                    "FOREIGN KEY (group_id) REFERENCES groups (id)," +
-                    "FOREIGN KEY (permission_id) REFERENCES permissions (id)" +
-                    ");");
+            statement.execute("""
+                CREATE TABLE IF NOT EXISTS group_permissions (
+                    group_id INTEGER,
+                    permission_id INTEGER,
+                    PRIMARY KEY (group_id, permission_id),
+                    FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE CASCADE,
+                    FOREIGN KEY (permission_id) REFERENCES permissions (id)
+                );""");
 
             MinecraftLogger.info("Database and tables created successfully.");
         } catch (SQLException e) {

@@ -11,7 +11,8 @@ public class PermissionService implements PermissionMapper{
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             PermissionMapper permissionMapper = sqlSession.getMapper(PermissionMapper.class);
-            if (permissionMapper.getPermissionByName(permission.getPermission()) > 0) {
+            Integer permissionByName = permissionMapper.getPermissionByName(permission.getPermission());
+            if (permissionByName != null && permissionByName > 0) {
                 // The permission already exists, return false
                 return false;
             }
@@ -52,7 +53,7 @@ public class PermissionService implements PermissionMapper{
     }
 
     @Override
-    public int getPermissionByName(String name) {
+    public Integer getPermissionByName(String name) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             PermissionMapper permissionMapper = sqlSession.getMapper(PermissionMapper.class);
@@ -65,7 +66,8 @@ public class PermissionService implements PermissionMapper{
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             PermissionMapper permissionMapper = sqlSession.getMapper(PermissionMapper.class);
-            return permissionMapper.getPermissionByName(name);
+            Integer permissionCount = permissionMapper.getPermissionByName(name);
+            return permissionCount != null ? permissionCount : 0;
         }
     }
 

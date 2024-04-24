@@ -11,5 +11,5 @@ public interface PermissionMapper {
     void updatePermission(Permission permission);
     boolean deletePermission(Integer id);
     boolean deletePermissionByName(String permission);
-    int getPermissionByName(String name);
+    Integer getPermissionByName(String name);
 }
