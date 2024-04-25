@@ -19,18 +19,16 @@ public class BukkitCommands {
     private final GetGroupPermissionsCommand getGroupPermissionsCommand = new GetGroupPermissionsCommand();
     private  final RemovePermissionFromGroupCommand removePermissionFromGroupCommand = new RemovePermissionFromGroupCommand();
     private final BukkitAssignPermissions bukkitAssignPermissions;
-
     public BukkitCommands(JavaPlugin plugin) {
         this.bukkitAssignPermissions = new BukkitAssignPermissions(new PermissionRetrieverService(), plugin);
 
     }
 
-    public boolean handleCommand(CommandSender sender, String label, String[] args) {
+    public boolean handleCommand(CommandSender sender, String[] args) {
         if (args.length == 0) {
             return true;
         } else if (args[0].equalsIgnoreCase("creategroup")) {
             CreateGroupCommand createGroupCommand = new CreateGroupCommand();
-            //get group name from args
 
 
 
@@ -79,6 +77,7 @@ public class BukkitCommands {
                 String groupName = args[1];
                 String playerName = args[3];
                 // Delete player from the group
+
                 if (deletePlayerFromGroup(groupName, playerName)) {
                     sender.sendMessage("Player " + playerName + " deleted from group " + groupName);
                 } else {

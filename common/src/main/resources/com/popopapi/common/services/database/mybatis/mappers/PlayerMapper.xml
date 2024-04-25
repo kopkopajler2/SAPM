@@ -38,4 +38,8 @@
     <select id="getPlayerIdByName" parameterType="java.lang.String" resultType="java.lang.Integer">
         SELECT id FROM players WHERE username = #{username}
     </select>
+
+    <select id="getAllPlayerUUIDs" resultType="java.lang.String">
+        SELECT uuid FROM players
+    </select>
 </mapper>

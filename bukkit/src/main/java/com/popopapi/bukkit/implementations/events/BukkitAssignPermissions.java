@@ -1,5 +1,6 @@
 package com.popopapi.bukkit.implementations.events;
 
+import com.popopapi.common.services.database.mybatis.services.PlayerService;
 import com.popopapi.common.services.permissions.PermissionRetrieverService;
 import org.bukkit.Bukkit;
 
@@ -13,10 +14,14 @@ import java.util.UUID;
 
 public class BukkitAssignPermissions {
     private final PermissionRetrieverService permissionAssignmentService;
+    private final   PlayerService playerService;
     private final Plugin plugin;
 
-    public BukkitAssignPermissions(PermissionRetrieverService permissionAssignmentService, Plugin plugin) {
+    public BukkitAssignPermissions(PermissionRetrieverService permissionAssignmentService,  Plugin plugin) {
         this.permissionAssignmentService = permissionAssignmentService;
+        this.playerService = new PlayerService();
+
+
         this.plugin = plugin;
     }
 
@@ -46,6 +51,11 @@ public class BukkitAssignPermissions {
             player.recalculatePermissions();
             player.updateCommands();
         }
+    }
+
+    public void AssignPermissionsToAllPlayers(){
+        List<String> allPlayerUUIDs = playerService.getAllPlayerUUIDs();
+        allPlayerUUIDs.forEach(this::AssignPermissions);
     }
 
 

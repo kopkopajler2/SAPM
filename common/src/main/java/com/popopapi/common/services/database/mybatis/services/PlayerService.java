@@ -55,4 +55,12 @@ public class PlayerService {
             return playerMapper.getPlayerIdByName(playerName);
         }
     }
+
+    public List<String> getAllPlayerUUIDs() {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            PlayerMapper playerMapper = sqlSession.getMapper(PlayerMapper.class);
+            return playerMapper.getAllPlayerUUIDs();
+        }
+    }
 }
