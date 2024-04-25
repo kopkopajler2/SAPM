@@ -39,4 +39,13 @@
 
 
 
+    <delete id="deleteAllPlayersFromGroup">
+        DELETE FROM player_groups
+        WHERE group_id = #{groupId, jdbcType=INTEGER}
+    </delete>
+
+
+
+
+
 </mapper>

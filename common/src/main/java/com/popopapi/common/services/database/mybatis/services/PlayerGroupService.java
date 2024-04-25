@@ -112,4 +112,14 @@ public class PlayerGroupService implements PlayerGroupMapper{
             return result;
         }
     }
+
+    public boolean deleteAllPlayersFromGroup(Integer groupId) {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            PlayerGroupMapper playerGroupMapper = sqlSession.getMapper(PlayerGroupMapper.class);
+            boolean result = playerGroupMapper.deleteAllPlayersFromGroup(groupId);
+            sqlSession.commit();
+            return result;
+        }
+    }
 }

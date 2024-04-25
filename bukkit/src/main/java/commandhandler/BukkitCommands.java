@@ -17,11 +17,12 @@ public class BukkitCommands {
     private final GetAllPlayerNamesCommand getAllPlayerNamesCommand = new GetAllPlayerNamesCommand();
     private final GetAllPermissionNamesCommand getAllPermissionNamesCommand = new GetAllPermissionNamesCommand();
     private final GetGroupPermissionsCommand getGroupPermissionsCommand = new GetGroupPermissionsCommand();
-    private  final RemovePermissionFromGroupCommand removePermissionFromGroupCommand = new RemovePermissionFromGroupCommand();
+    private final RemovePermissionFromGroupCommand removePermissionFromGroupCommand = new RemovePermissionFromGroupCommand();
+    private final ClearPlayersFromGroupCommand clearPlayersFromGroupCommand = new ClearPlayersFromGroupCommand();
     private final BukkitAssignPermissions bukkitAssignPermissions;
+
     public BukkitCommands(JavaPlugin plugin) {
         this.bukkitAssignPermissions = new BukkitAssignPermissions(new PermissionRetrieverService(), plugin);
-
     }
 
     public boolean handleCommand(CommandSender sender, String[] args) {
@@ -30,23 +31,19 @@ public class BukkitCommands {
         } else if (args[0].equalsIgnoreCase("creategroup")) {
             CreateGroupCommand createGroupCommand = new CreateGroupCommand();
 
-
-
             if (sender instanceof Player player) {
-                if (createGroupCommand.createGroup(args[1])
-                ) {
+                if (createGroupCommand.createGroup(args[1])) {
                     player.sendMessage("Group created!");
                 } else {
                     player.sendMessage("Failed to create group!");
                 }
-
             }
             return true;
         } else if (args[0].equalsIgnoreCase("deletegroup")) {
             DeleteGroupCommand deleteGroupCommand = new DeleteGroupCommand();
             //get group name from args
             if (sender instanceof Player player) {
-                if (deleteGroupCommand.deleteGroup( args[1])) {
+                if (deleteGroupCommand.deleteGroup(args[1])) {
                     player.sendMessage("Group deleted!");
                 } else {
                     player.sendMessage("Failed to delete group!");
@@ -55,13 +52,13 @@ public class BukkitCommands {
 
             return true;
         } else if (args[0].equalsIgnoreCase("webeditor")) {
-
-          //TODO: Implement web editor
+            //TODO: Implement web editor
             return true;
-        }
-
-
-        else if (args[0].equalsIgnoreCase("group")) {
+        } else if (args[0].equalsIgnoreCase("listgroups")) {
+            // listgroups command
+            sender.sendMessage("List of groups: " + String.join(", ", getAllGroupNamesCommand.getAllGroupNames()));
+            return true;
+        } else if (args[0].equalsIgnoreCase("group")) {
             if (args.length >= 4 && args[2].equalsIgnoreCase("addplayer")) {
                 String groupName = args[1];
                 String playerName = args[3];
@@ -76,7 +73,6 @@ public class BukkitCommands {
                 String groupName = args[1];
                 String playerName = args[3];
                 // Delete player from the group
-
                 if (deletePlayerFromGroup(groupName, playerName)) {
                     sender.sendMessage("Player " + playerName + " deleted from group " + groupName);
                 } else {
@@ -93,7 +89,7 @@ public class BukkitCommands {
                     sender.sendMessage("Failed to add permission " + permission + " to group " + groupName);
                 }
                 return true;
-            }else if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("remove")) {
+            } else if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("remove")) {
                 String groupName = args[1];
                 String permission = args[4];
                 // Remove permission from the group
@@ -103,8 +99,76 @@ public class BukkitCommands {
                     sender.sendMessage("Failed to remove permission " + permission + " from group " + groupName);
                 }
                 return true;
+            } else if (args.length >= 4 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("show")) {
+                // group [name] permission show command
+                String groupName = args[1];
+                sender.sendMessage("Permissions for group " + groupName + ": " + String.join(", ", getGroupPermissionsCommand.getGroupPermissions(groupName)));
+                return true;
+            } else if (args.length >= 3 && args[2].equalsIgnoreCase("clear") && args[3].equalsIgnoreCase("players")) {
+                // group [name] clear players command
+                String groupName = args[1];
+                // TODO: Implement clearing players from the group
+                //TODO FIX group deleteplayer autocomplete minden playert listaz
+                if(clearPlayersFromGroupCommand.clearPlayersFromGroupCommand(groupName)){
+                    sender.sendMessage("Cleared players from group " + groupName);
+                } else {
+                    sender.sendMessage("Failed to clear players from group " + groupName);
+                }
+                return true;
+            } else if (args.length >= 3 && args[2].equalsIgnoreCase("clear") && args[3].equalsIgnoreCase("permissions")) {
+                // group [name] clear permissions command
+                String groupName = args[1];
+                // TODO: Implement clearing permissions from the group
+                sender.sendMessage("Clearing permissions from group " + groupName);
+                return true;
+            } else if (args.length >= 3 && args[2].equalsIgnoreCase("info") && args[3].equalsIgnoreCase("players")) {
+                // group [name] info players command
+                String groupName = args[1];
+                // TODO: Implement showing player info for the group
+                sender.sendMessage("Player info for group " + groupName);
+                return true;
+            } else if (args.length >= 3 && args[2].equalsIgnoreCase("info") && args[3].equalsIgnoreCase("permissions")) {
+                // group [name] info permissions command
+                String groupName = args[1];
+                sender.sendMessage("Permissions for group " + groupName + ": " + String.join(", ", getGroupPermissionsCommand.getGroupPermissions(groupName)));
+                return true;
+            } else if (args.length >= 3 && args[2].equalsIgnoreCase("rename")) {
+                // group [name] rename command
+                String groupName = args[1];
+                String newGroupName = args[3];
+                // TODO: Implement renaming the group
+                sender.sendMessage("Renaming group " + groupName + " to " + newGroupName);
+                return true;
             }
             return handleGroupCommand(sender, args);
+        } else if (args[0].equalsIgnoreCase("player")) {
+            if (args.length >= 4 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("add")) {
+                // player [name] permission add command
+                String playerName = args[1];
+                String permission = args[4];
+                // TODO: Implement adding permission to the player
+                sender.sendMessage("Adding permission " + permission + " to player " + playerName);
+                return true;
+            } else if (args.length >= 4 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("remove")) {
+                // player [name] permission remove command
+                String playerName = args[1];
+                String permission = args[4];
+                // TODO: Implement removing permission from the player
+                sender.sendMessage("Removing permission " + permission + " from player " + playerName);
+                return true;
+            } else if (args.length >= 3 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("show")) {
+                // player [name] permission show command
+                String playerName = args[1];
+                // TODO: Implement showing player permissions
+                sender.sendMessage("Permissions for player " + playerName);
+                return true;
+            } else if (args.length >= 2 && args[2].equalsIgnoreCase("info")) {
+                // player [name] info command
+                String playerName = args[1];
+                // TODO: Implement showing player info
+                sender.sendMessage("Info for player " + playerName);
+                return true;
+            }
         }
         return false;
     }
@@ -113,12 +177,10 @@ public class BukkitCommands {
         AddPermissionToGroupCommand addPermissionToGroupCommand = new AddPermissionToGroupCommand();
         return addPermissionToGroupCommand.bukkitAddPermissionToGroup(groupName, permission);
     }
+
     private boolean addPlayerToGroup(String groupName, String playerName) {
         AddPlayerToGroupCommand addPlayerToGroupCommand = new AddPlayerToGroupCommand();
         return addPlayerToGroupCommand.bukkitAddPlayerToGroup(playerName, groupName);
-
-
-
     }
 
     private boolean deletePlayerFromGroup(String groupName, String playerName) {
@@ -160,10 +222,14 @@ public class BukkitCommands {
             list.add("creategroup");
             list.add("deletegroup");
             list.add("webeditor");
+            list.add("listgroups");
             list.add("group");
+            list.add("player");
         } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("deletegroup") || args[0].equalsIgnoreCase("group")) {
                 list.addAll(getAllGroupNamesCommand.getAllGroupNames());
+            } else if (args[0].equalsIgnoreCase("player")) {
+                list.addAll(getAllPlayerNamesCommand.getAllPlayerNames());
             }
         } else if (args.length == 3 && args[0].equalsIgnoreCase("group")) {
             list.add("clear");
@@ -172,6 +238,9 @@ public class BukkitCommands {
             list.add("permission");
             list.add("addplayer");
             list.add("deleteplayer");
+        } else if (args.length == 3 && args[0].equalsIgnoreCase("player")) {
+            list.add("permission");
+            list.add("info");
         } else if (args.length == 4 && args[0].equalsIgnoreCase("group")) {
             if (args[2].equalsIgnoreCase("addplayer") || args[2].equalsIgnoreCase("deleteplayer")) {
                 list.addAll(getAllPlayerNamesCommand.getAllPlayerNames());
@@ -179,7 +248,17 @@ public class BukkitCommands {
                 list.add("add");
                 list.add("remove");
                 list.add("show");
+            } else if (args[2].equalsIgnoreCase("clear")) {
+                list.add("players");
+                list.add("permissions");
+            } else if (args[2].equalsIgnoreCase("info")) {
+                list.add("players");
+                list.add("permissions");
             }
+        } else if (args.length == 4 && args[0].equalsIgnoreCase("player") && args[2].equalsIgnoreCase("permission")) {
+            list.add("add");
+            list.add("remove");
+            list.add("show");
         } else if (args.length == 5 && args[0].equalsIgnoreCase("group") && args[2].equalsIgnoreCase("permission")) {
             new BukkitGetAllPermissions();
             if (args[3].equalsIgnoreCase("add")) {
@@ -188,6 +267,9 @@ public class BukkitCommands {
                 String groupName = args[1];
                 list.addAll(getGroupPermissionsCommand.getGroupPermissions(groupName));
             }
+        } else if (args.length == 5 && args[0].equalsIgnoreCase("player") && args[2].equalsIgnoreCase("permission") && (args[3].equalsIgnoreCase("add") || args[3].equalsIgnoreCase("remove"))) {
+            new BukkitGetAllPermissions();
+            list.addAll(getAllPermissionNamesCommand.getAllPermissionNames());
         }
         return list;
     }
