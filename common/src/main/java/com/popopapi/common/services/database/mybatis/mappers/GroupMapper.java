@@ -13,6 +13,6 @@ public interface GroupMapper {
     boolean deleteGroup(Integer id);
     boolean deleteGroupByName(String group);
 
-    int getGroupByName(String name);
+    Integer getGroupByName(String name);
     //int getGroupByName(String name);
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PermissionRetrieverService implements PermissionAssignment{
+public class PermissionRetrieverService implements PermissionAssignment {
     @Override
     public List<String> getPlayerPermissions(String uuid) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
@@ -20,11 +20,12 @@ public class PermissionRetrieverService implements PermissionAssignment{
             PlayerPermissionMapper playerPermissionMapper = sqlSession.getMapper(PlayerPermissionMapper.class);
             GroupPermissionMapper groupPermissionMapper = sqlSession.getMapper(GroupPermissionMapper.class);
             PermissionMapper permissionMapper = sqlSession.getMapper(PermissionMapper.class);
+
             // Get the player ID based on the UUID
             Integer playerId = playerMapper.getPlayerIdByUUID(uuid);
             if (playerId == null) {
-                // Player not found, handle accordingly (e.g., create a new player record)
-                return null;
+                // return empty list if the player ID is not found
+                return List.of();
             }
 
             // Get the list of group IDs the player belongs to
@@ -47,11 +48,8 @@ public class PermissionRetrieverService implements PermissionAssignment{
                         return permission != null ? permission.getPermission() : null;
                     })
                     .filter(Objects::nonNull)
+                    .distinct() // Add distinct() to remove duplicates
                     .toList();
-
-            // Assign the permissions to the player (e.g., using a permission plugin API)
-            // Code to assign permissions goes here
-            // ...
         }
     }
 }

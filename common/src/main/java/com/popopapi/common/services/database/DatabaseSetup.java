@@ -58,13 +58,13 @@ public class DatabaseSetup {
                 );""");
 
             statement.execute("""
-                CREATE TABLE IF NOT EXISTS player_groups (
-                    player_id INTEGER,
-                    group_id INTEGER,
-                    PRIMARY KEY (player_id, group_id),
-                    FOREIGN KEY (player_id) REFERENCES players (id),
-                    FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE CASCADE
-                );""");
+                    CREATE TABLE IF NOT EXISTS player_groups (
+                        player_id INTEGER,
+                        group_id INTEGER,
+                        PRIMARY KEY (player_id, group_id),
+                        FOREIGN KEY (player_id) REFERENCES players (id),
+                        FOREIGN KEY (group_id) REFERENCES groups (id) ON DELETE CASCADE
+                    );""");
 
             statement.execute("""
                 CREATE TABLE IF NOT EXISTS permissions (

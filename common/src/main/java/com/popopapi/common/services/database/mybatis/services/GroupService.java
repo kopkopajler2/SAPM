@@ -59,7 +59,7 @@ public class GroupService implements GroupMapper{
     }
 
 
-    public int getGroupByName(String name) {
+    public Integer getGroupByName(String name) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             GroupMapper groupMapper = sqlSession.getMapper(GroupMapper.class);
