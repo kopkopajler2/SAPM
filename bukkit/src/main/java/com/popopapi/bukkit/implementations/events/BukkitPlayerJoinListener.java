@@ -27,9 +27,8 @@ public class BukkitPlayerJoinListener implements Listener {
         playerJoinListener.onPlayerJoin(new com.popopapi.common.services.database.models.Player(uuid, name));
 
         // If the player is an operator, don't assign any permissions
-        if (!event.getPlayer().isOp()) {
             // Assign permissions to the player
             bukkitAssignPermissions.AssignPermissions(uuid);
-        }
+
     }
 }

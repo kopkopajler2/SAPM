@@ -31,6 +31,11 @@ public class PermissionRetrieverService implements PermissionAssignment {
             // Get the list of group IDs the player belongs to
             List<Integer> groupIds = playerGroupMapper.getGroupIdsByPlayerId(playerId);
 
+            // If the player is not part of any groups, return an empty list
+            if (groupIds.isEmpty()) {
+                return List.of();
+            }
+
             // Get the list of permission IDs directly assigned to the player
             List<Integer> playerPermissionIds = playerPermissionMapper.getPermissionIdsByPlayerId(playerId);
 

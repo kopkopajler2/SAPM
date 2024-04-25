@@ -1,9 +1,9 @@
 package commandhandler;
 
 import com.popopapi.bukkit.implementations.BukkitGetAllPermissions;
+import com.popopapi.bukkit.implementations.events.BukkitAssignPermissions;
 import com.popopapi.common.commands.*;
 import com.popopapi.common.services.permissions.PermissionRetrieverService;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,8 +18,11 @@ public class BukkitCommands {
     private final GetAllPermissionNamesCommand getAllPermissionNamesCommand = new GetAllPermissionNamesCommand();
     private final GetGroupPermissionsCommand getGroupPermissionsCommand = new GetGroupPermissionsCommand();
     private  final RemovePermissionFromGroupCommand removePermissionFromGroupCommand = new RemovePermissionFromGroupCommand();
-    PermissionRetrieverService permissionRetrieverService = new PermissionRetrieverService();
+    private final BukkitAssignPermissions bukkitAssignPermissions;
+
     public BukkitCommands(JavaPlugin plugin) {
+        this.bukkitAssignPermissions = new BukkitAssignPermissions(new PermissionRetrieverService(), plugin);
+
     }
 
     public boolean handleCommand(CommandSender sender, String label, String[] args) {
@@ -54,17 +57,9 @@ public class BukkitCommands {
 
             return true;
         } else if (args[0].equalsIgnoreCase("webeditor")) {
-            //test
-           List<String> perms= permissionRetrieverService.getPlayerPermissions("ac4a0e32-09d8-3888-aed7-d10c97642c9c");
-           if(perms.isEmpty())
-           {
-               sender.sendMessage("No permissions found");
-              }
-           else{
-               Bukkit.getLogger().info(perms.toString());
-           }
 
 
+            bukkitAssignPermissions.AssignPermissions("dda915f8-abf6-31e8-8221-e0eaa1f9c4c7");
             return true;
         }
 

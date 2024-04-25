@@ -9,6 +9,9 @@ import com.popopapi.common.services.logger.MinecraftLogger;
 import com.popopapi.common.services.permissions.PermissionRetrieverService;
 import commandhandler.BukkitCommandHandler;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Objects;
+
 public class BukkitInit implements StartupInit {
     private final JavaPlugin plugin;
 
@@ -24,8 +27,8 @@ public class BukkitInit implements StartupInit {
 
     public void initCommands() {
         BukkitCommandHandler commandHandler = new BukkitCommandHandler(plugin);
-        plugin.getCommand("sapm").setExecutor(commandHandler);
-        plugin.getCommand("sapm").setTabCompleter(commandHandler);
+        Objects.requireNonNull(plugin.getCommand("sapm")).setExecutor(commandHandler);
+        Objects.requireNonNull(plugin.getCommand("sapm")).setTabCompleter(commandHandler);
     }
 
     public void initListeners() {
