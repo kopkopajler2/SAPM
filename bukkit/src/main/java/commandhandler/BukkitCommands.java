@@ -56,8 +56,7 @@ public class BukkitCommands {
             return true;
         } else if (args[0].equalsIgnoreCase("webeditor")) {
 
-
-            bukkitAssignPermissions.AssignPermissions("dda915f8-abf6-31e8-8221-e0eaa1f9c4c7");
+          //TODO: Implement web editor
             return true;
         }
 

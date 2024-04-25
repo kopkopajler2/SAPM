@@ -20,7 +20,7 @@ public class BukkitCommandHandler implements TabExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("sapm")) {
+        if (command.getName().equalsIgnoreCase("sapm")||command.getName().equalsIgnoreCase("deop")) {
             boolean commandExecutedSuccessfully = commandHandler.handleCommand(sender, args);
             if (commandExecutedSuccessfully) {
                 bukkitAssignPermissions.AssignPermissionsToAllPlayers();
