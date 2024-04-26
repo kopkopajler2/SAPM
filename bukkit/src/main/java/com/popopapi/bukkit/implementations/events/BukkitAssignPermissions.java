@@ -34,7 +34,7 @@ public class BukkitAssignPermissions {
 
             for (PermissionAttachmentInfo attachmentInfo : player.getEffectivePermissions()) {
                 PermissionAttachment attachment = attachmentInfo.getAttachment();
-                if (attachment != null) {
+                if (attachment != null && player.hasPermission(attachment.getPermissions().keySet().iterator().next())) {
                     player.removeAttachment(attachment);
                 }
             }
