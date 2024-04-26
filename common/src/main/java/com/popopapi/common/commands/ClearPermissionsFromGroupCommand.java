@@ -8,8 +8,8 @@ public class ClearPermissionsFromGroupCommand {
     GroupService groupService = new GroupService();
     public boolean clearPermissionsFromGroupCommand(String groupName){
         //get group id by name
-        groupPermissionService.clearPermissionsFromGroup(groupName);
-        return true;
+      return  groupPermissionService.clearPermissionsFromGroup(groupName);
+
     }
 
 }

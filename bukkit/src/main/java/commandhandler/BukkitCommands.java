@@ -22,7 +22,8 @@ public class BukkitCommands {
     private final BukkitAssignPermissions bukkitAssignPermissions;
     private final ClearPermissionsFromGroupCommand clearPermissionsFromGroupCommand = new ClearPermissionsFromGroupCommand();
     private final GetGroupPlayersCommand getGroupPlayersCommand = new GetGroupPlayersCommand();
-    private  final  UpdateGroupCommand updateGroupCommand = new UpdateGroupCommand();
+    private final UpdateGroupCommand updateGroupCommand = new UpdateGroupCommand();
+    private final AddPlayerPermissionCommand addPlayerPermissionCommand = new AddPlayerPermissionCommand();
 
     public BukkitCommands(JavaPlugin plugin) {
         this.bukkitAssignPermissions = new BukkitAssignPermissions(new PermissionRetrieverService(), plugin);
@@ -31,7 +32,7 @@ public class BukkitCommands {
     public boolean handleCommand(CommandSender sender, String[] args) {
         if (args.length == 0) {
             return true;
-        } else if (args[0].equalsIgnoreCase("creategroup")) {
+        } else if (args.length >= 2 && args[0].equalsIgnoreCase("creategroup")) {
             CreateGroupCommand createGroupCommand = new CreateGroupCommand();
 
             if (sender instanceof Player player) {
@@ -42,9 +43,8 @@ public class BukkitCommands {
                 }
             }
             return true;
-        } else if (args[0].equalsIgnoreCase("deletegroup")) {
+        } else if (args.length >= 2 && args[0].equalsIgnoreCase("deletegroup")) {
             DeleteGroupCommand deleteGroupCommand = new DeleteGroupCommand();
-            //get group name from args
             if (sender instanceof Player player) {
                 if (deleteGroupCommand.deleteGroup(args[1])) {
                     player.sendMessage("Group deleted!");
@@ -107,70 +107,70 @@ public class BukkitCommands {
                 String groupName = args[1];
                 sender.sendMessage("Permissions for group " + groupName + ": " + String.join(", ", getGroupPermissionsCommand.getGroupPermissions(groupName)));
                 return true;
-            } else if (args.length >= 3 && args[2].equalsIgnoreCase("clear") && args[3].equalsIgnoreCase("permissions")) {
-
+            } else if (args.length >= 4 && args[2].equalsIgnoreCase("clear") && args[3].equalsIgnoreCase("players")) {
                 // group [name] clear players command
                 String groupName = args[1];
-                if(clearPermissionsFromGroupCommand.clearPermissionsFromGroupCommand(groupName)){
+                if (clearPlayersFromGroupCommand.clearPlayersFromGroupCommand(groupName)) {
+                    sender.sendMessage("Cleared players from group " + groupName);
+                } else {
+                    sender.sendMessage("Failed to clear players from group " + groupName);
+                }
+                return true;
+            } else if (args.length >= 4 && args[2].equalsIgnoreCase("clear") && args[3].equalsIgnoreCase("permissions")) {
+                // group [name] clear permissions command
+                String groupName = args[1];
+                if (clearPermissionsFromGroupCommand.clearPermissionsFromGroupCommand(groupName)) {
                     sender.sendMessage("Cleared permissions from group " + groupName);
                 } else {
                     sender.sendMessage("Failed to clear permissions from group " + groupName);
                 }
-
                 return true;
-            } else if (args.length >= 3 && args[2].equalsIgnoreCase("clear") && args[3].equalsIgnoreCase("permissions")) {
-                // group [name] clear permissions command
-                String groupName = args[1];
-                sender.sendMessage("Clearing permissions from group " + groupName);
-                return true;
-            } else if (args.length >= 3 && args[2].equalsIgnoreCase("info") && args[3].equalsIgnoreCase("players")) {
+            } else if (args.length >= 4 && args[2].equalsIgnoreCase("info") && args[3].equalsIgnoreCase("players")) {
                 // group [name] info players command
                 String groupName = args[1];
                 List<String> groupnames = getGroupPlayersCommand.getGroupPlayers(groupName);
                 sender.sendMessage("Players in group " + groupName + ": " + String.join(", ", groupnames));
                 return true;
-            } else if (args.length >= 3 && args[2].equalsIgnoreCase("info") && args[3].equalsIgnoreCase("permissions")) {
+            } else if (args.length >= 4 && args[2].equalsIgnoreCase("info") && args[3].equalsIgnoreCase("permissions")) {
                 // group [name] info permissions command
                 String groupName = args[1];
                 sender.sendMessage("Permissions for group " + groupName + ": " + String.join(", ", getGroupPermissionsCommand.getGroupPermissions(groupName)));
                 return true;
-            } else if (args.length >= 3 && args[2].equalsIgnoreCase("rename")) {
+            } else if (args.length >= 4 && args[2].equalsIgnoreCase("rename")) {
                 // group [name] rename command
                 String groupName = args[1];
                 String newGroupName = args[3];
                 // Implement renaming the group
-                if(updateGroupCommand.updateGroup(groupName, newGroupName)){
+                if (updateGroupCommand.updateGroup(groupName, newGroupName)) {
                     sender.sendMessage("Group renamed to " + newGroupName);
                 } else {
                     sender.sendMessage("Failed to rename group to " + newGroupName);
                 }
-
-
                 return true;
             }
             return handleGroupCommand(sender, args);
         } else if (args[0].equalsIgnoreCase("player")) {
-            if (args.length >= 4 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("add")) {
+            if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("add")) {
                 // player [name] permission add command
                 String playerName = args[1];
                 String permission = args[4];
                 // TODO: Implement adding permission to the player
-                sender.sendMessage("Adding permission " + permission + " to player " + playerName);
+
                 return true;
-            } else if (args.length >= 4 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("remove")) {
+            } else if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("remove")) {
                 // player [name] permission remove command
                 String playerName = args[1];
                 String permission = args[4];
                 // TODO: Implement removing permission from the player
                 sender.sendMessage("Removing permission " + permission + " from player " + playerName);
                 return true;
-            } else if (args.length >= 3 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("show")) {
+            } else if (args.length >= 4 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("show")) {
                 // player [name] permission show command
                 String playerName = args[1];
                 // TODO: Implement showing player permissions
                 sender.sendMessage("Permissions for player " + playerName);
                 return true;
-            } else if (args.length >= 2 && args[2].equalsIgnoreCase("info")) {
+            } else if (args.length >= 3 && args[2].equalsIgnoreCase("info")) {
                 // player [name] info command
                 String playerName = args[1];
                 // TODO: Implement showing player info
@@ -199,7 +199,7 @@ public class BukkitCommands {
     private boolean handleGroupCommand(CommandSender sender, String[] args) {
         if (args.length == 2) {
             return true;
-        } else if (args.length == 3) {
+        } else if (args.length >= 3) {
             if (args[2].equalsIgnoreCase("clear")) {
                 return true;
             } else if (args[2].equalsIgnoreCase("info")) {
@@ -214,7 +214,7 @@ public class BukkitCommands {
     }
 
     private boolean handlePermissionCommand(CommandSender sender, String[] args) {
-        if (args.length == 4) {
+        if (args.length >= 4) {
             if (args[3].equalsIgnoreCase("add")) {
                 return true;
             } else if (args[3].equalsIgnoreCase("remove")) {

@@ -7,7 +7,7 @@ public class ClearPlayersFromGroupCommand {
     public boolean clearPlayersFromGroupCommand(String groupName){
         //get group id by name
         Integer groupId = playerGroupService.getPlayerGroupByName(groupName);
-        playerGroupService.deleteAllPlayersFromGroup(groupId);
-        return true;
+        return playerGroupService.deleteAllPlayersFromGroup(groupId);
+
     }
 }

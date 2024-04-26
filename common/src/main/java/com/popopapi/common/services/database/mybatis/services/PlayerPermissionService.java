@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import java.util.List;
 
 public class PlayerPermissionService implements PlayerPermissionMapper{
-    public boolean addPermissionToPlayer(int playerId, int permissionId) {
+    public boolean addPermissionToPlayer(Integer playerId, Integer permissionId) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             PlayerPermissionMapper playerPermissionMapper = sqlSession.getMapper(PlayerPermissionMapper.class);
@@ -18,7 +18,7 @@ public class PlayerPermissionService implements PlayerPermissionMapper{
         }
     }
 
-    public boolean removePermissionFromPlayer(int playerId, int permissionId) {
+    public boolean removePermissionFromPlayer(Integer playerId, Integer permissionId) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             PlayerPermissionMapper playerPermissionMapper = sqlSession.getMapper(PlayerPermissionMapper.class);
@@ -28,14 +28,14 @@ public class PlayerPermissionService implements PlayerPermissionMapper{
         }
     }
 
-    public List<Integer> getPlayerPermissions(int playerId) {
+    public List<Integer> getPlayerPermissions(Integer playerId) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             PlayerPermissionMapper playerPermissionMapper = sqlSession.getMapper(PlayerPermissionMapper.class);
             return playerPermissionMapper.getPlayerPermissions(playerId);
         }
     }
-    public List<Integer> getPermissionIdsByPlayerId(int playerId) {
+    public List<Integer> getPermissionIdsByPlayerId(Integer playerId) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             PlayerPermissionMapper playerPermissionMapper = sqlSession.getMapper(PlayerPermissionMapper.class);
