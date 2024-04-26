@@ -66,4 +66,18 @@ public class GroupService implements GroupMapper{
             return groupMapper.getGroupByName(name);
         }
     }
+
+
+
+
+    @Override
+    public boolean updateGroup(Group group) {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            GroupMapper groupMapper = sqlSession.getMapper(GroupMapper.class);
+            boolean result = groupMapper.updateGroup(group);
+            sqlSession.commit();
+            return result;
+        }
+    }
 }

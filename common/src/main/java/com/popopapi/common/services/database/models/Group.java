@@ -6,7 +6,7 @@ package com.popopapi.common.services.database.models;
     private String name;
 
     // Getters and Setters
-    public int getId() {
+    public Integer getId() {
         return id;
     }
     public void setId(Integer id) {

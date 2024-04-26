@@ -18,10 +18,10 @@
     <select id="getGroupById" parameterType="java.lang.Integer" resultMap="GroupResultMap">
         SELECT * FROM groups WHERE id = #{id}
     </select>
-
     <select id="getGroupByName" parameterType="java.lang.String" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM groups WHERE name = #{name}
+        SELECT id FROM groups WHERE name = #{name}
     </select>
+
 
     <select id="getAllGroups" resultMap="GroupResultMap">
         SELECT * FROM groups
@@ -29,6 +29,7 @@
     <select id="getAllGroupNames" resultType="java.lang.String">
         SELECT name FROM groups
     </select>
+
 
     <update id="updateGroup" parameterType="com.popopapi.common.services.database.models.Group">
         UPDATE groups

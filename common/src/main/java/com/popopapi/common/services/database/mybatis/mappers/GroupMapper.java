@@ -14,5 +14,7 @@ public interface GroupMapper {
     boolean deleteGroupByName(String group);
 
     Integer getGroupByName(String name);
+    boolean updateGroup(Group group) ;
+
     //int getGroupByName(String name);
 }

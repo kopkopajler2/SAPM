@@ -22,6 +22,7 @@ public class BukkitCommands {
     private final BukkitAssignPermissions bukkitAssignPermissions;
     private final ClearPermissionsFromGroupCommand clearPermissionsFromGroupCommand = new ClearPermissionsFromGroupCommand();
     private final GetGroupPlayersCommand getGroupPlayersCommand = new GetGroupPlayersCommand();
+    private  final  UpdateGroupCommand updateGroupCommand = new UpdateGroupCommand();
 
     public BukkitCommands(JavaPlugin plugin) {
         this.bukkitAssignPermissions = new BukkitAssignPermissions(new PermissionRetrieverService(), plugin);
@@ -125,7 +126,6 @@ public class BukkitCommands {
             } else if (args.length >= 3 && args[2].equalsIgnoreCase("info") && args[3].equalsIgnoreCase("players")) {
                 // group [name] info players command
                 String groupName = args[1];
-                // TODO: Implement showing player info for the group
                 List<String> groupnames = getGroupPlayersCommand.getGroupPlayers(groupName);
                 sender.sendMessage("Players in group " + groupName + ": " + String.join(", ", groupnames));
                 return true;
@@ -138,8 +138,14 @@ public class BukkitCommands {
                 // group [name] rename command
                 String groupName = args[1];
                 String newGroupName = args[3];
-                // TODO: Implement renaming the group
-                sender.sendMessage("Renaming group " + groupName + " to " + newGroupName);
+                // Implement renaming the group
+                if(updateGroupCommand.updateGroup(groupName, newGroupName)){
+                    sender.sendMessage("Group renamed to " + newGroupName);
+                } else {
+                    sender.sendMessage("Failed to rename group to " + newGroupName);
+                }
+
+
                 return true;
             }
             return handleGroupCommand(sender, args);
