@@ -49,6 +49,11 @@
         AND permission_id = (SELECT id FROM permissions WHERE permission = #{permission})
     </delete>
 
+    <delete id="clearPermissionsFromGroup">
+        DELETE FROM group_permissions
+        WHERE group_id = (SELECT id FROM groups WHERE name = #{GroupName})
+    </delete>
+
 
 
 </mapper>

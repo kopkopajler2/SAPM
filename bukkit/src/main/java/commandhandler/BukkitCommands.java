@@ -20,6 +20,7 @@ public class BukkitCommands {
     private final RemovePermissionFromGroupCommand removePermissionFromGroupCommand = new RemovePermissionFromGroupCommand();
     private final ClearPlayersFromGroupCommand clearPlayersFromGroupCommand = new ClearPlayersFromGroupCommand();
     private final BukkitAssignPermissions bukkitAssignPermissions;
+    private final ClearPermissionsFromGroupCommand clearPermissionsFromGroupCommand = new ClearPermissionsFromGroupCommand();
     private final GetGroupPlayersCommand getGroupPlayersCommand = new GetGroupPlayersCommand();
 
     public BukkitCommands(JavaPlugin plugin) {
@@ -105,11 +106,15 @@ public class BukkitCommands {
                 String groupName = args[1];
                 sender.sendMessage("Permissions for group " + groupName + ": " + String.join(", ", getGroupPermissionsCommand.getGroupPermissions(groupName)));
                 return true;
-            } else if (args.length >= 3 && args[2].equalsIgnoreCase("clear") && args[3].equalsIgnoreCase("players")) {
+            } else if (args.length >= 3 && args[2].equalsIgnoreCase("clear") && args[3].equalsIgnoreCase("permissions")) {
+
                 // group [name] clear players command
                 String groupName = args[1];
-                // TODO: Implement clearing players from the group
-                //TODO FIX group deleteplayer autocomplete minden playert listaz
+                if(clearPermissionsFromGroupCommand.clearPermissionsFromGroupCommand(groupName)){
+                    sender.sendMessage("Cleared permissions from group " + groupName);
+                } else {
+                    sender.sendMessage("Failed to clear permissions from group " + groupName);
+                }
                 if(clearPlayersFromGroupCommand.clearPlayersFromGroupCommand(groupName)){
                     sender.sendMessage("Cleared players from group " + groupName);
                 } else {
@@ -119,7 +124,6 @@ public class BukkitCommands {
             } else if (args.length >= 3 && args[2].equalsIgnoreCase("clear") && args[3].equalsIgnoreCase("permissions")) {
                 // group [name] clear permissions command
                 String groupName = args[1];
-                // TODO: Implement clearing permissions from the group
                 sender.sendMessage("Clearing permissions from group " + groupName);
                 return true;
             } else if (args.length >= 3 && args[2].equalsIgnoreCase("info") && args[3].equalsIgnoreCase("players")) {

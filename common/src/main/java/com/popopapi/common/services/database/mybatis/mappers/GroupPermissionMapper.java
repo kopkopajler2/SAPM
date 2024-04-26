@@ -12,4 +12,5 @@ public interface GroupPermissionMapper {
     List<Integer> getPermissionIdsByGroupIds(List<Integer> groupIds);
     List<String> getGroupPermissionsByGroupName(String groupName);
     boolean isPermissionAssignedToGroup(@Param("groupId") Integer groupId, @Param("permissionId") Integer permissionId);
+    boolean clearPermissionsFromGroup(String GroupName);
 }

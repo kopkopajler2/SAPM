@@ -72,4 +72,14 @@ public class GroupPermissionService implements GroupPermissionMapper {
         }
     }
 
+    public boolean clearPermissionsFromGroup(String GroupName) {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            GroupPermissionMapper groupPermissionMapper = sqlSession.getMapper(GroupPermissionMapper.class);
+            boolean result = groupPermissionMapper.clearPermissionsFromGroup(GroupName);
+            sqlSession.commit();
+            return result;
+        }
+    }
+
 }
