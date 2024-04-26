@@ -32,6 +32,13 @@
         WHERE name = #{groupName}
     </select>
 
+    <select id="getAllPlayerNamesFromGroup" resultType="java.lang.String">
+        SELECT username FROM players
+        JOIN player_groups ON players.id = player_groups.player_id
+        WHERE player_groups.group_id = #{groupId}
+    </select>
+
+
     <delete id="deletePlayerFromGroup">
         DELETE FROM player_groups
         WHERE player_id = #{playerId}

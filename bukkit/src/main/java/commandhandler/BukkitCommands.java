@@ -20,6 +20,7 @@ public class BukkitCommands {
     private final RemovePermissionFromGroupCommand removePermissionFromGroupCommand = new RemovePermissionFromGroupCommand();
     private final ClearPlayersFromGroupCommand clearPlayersFromGroupCommand = new ClearPlayersFromGroupCommand();
     private final BukkitAssignPermissions bukkitAssignPermissions;
+    private final GetGroupPlayersCommand getGroupPlayersCommand = new GetGroupPlayersCommand();
 
     public BukkitCommands(JavaPlugin plugin) {
         this.bukkitAssignPermissions = new BukkitAssignPermissions(new PermissionRetrieverService(), plugin);
@@ -254,6 +255,9 @@ public class BukkitCommands {
             } else if (args[2].equalsIgnoreCase("info")) {
                 list.add("players");
                 list.add("permissions");
+            } else if (args[2].equalsIgnoreCase("deleteplayer")) { // added this block
+                String groupName = args[1];
+                list.addAll(getGroupPlayersCommand.getGroupPlayers(groupName));
             }
         } else if (args.length == 4 && args[0].equalsIgnoreCase("player") && args[2].equalsIgnoreCase("permission")) {
             list.add("add");
