@@ -115,11 +115,7 @@ public class BukkitCommands {
                 } else {
                     sender.sendMessage("Failed to clear permissions from group " + groupName);
                 }
-                if(clearPlayersFromGroupCommand.clearPlayersFromGroupCommand(groupName)){
-                    sender.sendMessage("Cleared players from group " + groupName);
-                } else {
-                    sender.sendMessage("Failed to clear players from group " + groupName);
-                }
+
                 return true;
             } else if (args.length >= 3 && args[2].equalsIgnoreCase("clear") && args[3].equalsIgnoreCase("permissions")) {
                 // group [name] clear permissions command
