@@ -244,7 +244,7 @@ public class BukkitCommands {
             list.add("info");
         } else if (args.length == 4 && args[0].equalsIgnoreCase("group")) {
             if (args[2].equalsIgnoreCase("addplayer") || args[2].equalsIgnoreCase("deleteplayer")) {
-                list.addAll(getAllPlayerNamesCommand.getAllPlayerNames());
+                list.addAll(getGroupPlayersCommand.getGroupPlayers(args[1]));
             } else if (args[2].equalsIgnoreCase("permission")) {
                 list.add("add");
                 list.add("remove");
