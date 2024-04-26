@@ -243,8 +243,11 @@ public class BukkitCommands {
             list.add("permission");
             list.add("info");
         } else if (args.length == 4 && args[0].equalsIgnoreCase("group")) {
-            if (args[2].equalsIgnoreCase("addplayer") || args[2].equalsIgnoreCase("deleteplayer")) {
+            if (args[2].equalsIgnoreCase("addplayer")) {
                 list.addAll(getAllPlayerNamesCommand.getAllPlayerNames());
+            } else if (args[2].equalsIgnoreCase("deleteplayer")) {
+                String groupName = args[1];
+                list.addAll(getGroupPlayersCommand.getGroupPlayers(groupName));
             } else if (args[2].equalsIgnoreCase("permission")) {
                 list.add("add");
                 list.add("remove");
@@ -255,9 +258,6 @@ public class BukkitCommands {
             } else if (args[2].equalsIgnoreCase("info")) {
                 list.add("players");
                 list.add("permissions");
-            } else if (args[2].equalsIgnoreCase("deleteplayer")) { // added this block
-                String groupName = args[1];
-                list.addAll(getGroupPlayersCommand.getGroupPlayers(groupName));
             }
         } else if (args.length == 4 && args[0].equalsIgnoreCase("player") && args[2].equalsIgnoreCase("permission")) {
             list.add("add");
