@@ -126,7 +126,8 @@ public class BukkitCommands {
                 // group [name] info players command
                 String groupName = args[1];
                 // TODO: Implement showing player info for the group
-                sender.sendMessage("Player info for group " + groupName);
+                List<String> groupnames = getGroupPlayersCommand.getGroupPlayers(groupName);
+                sender.sendMessage("Players in group " + groupName + ": " + String.join(", ", groupnames));
                 return true;
             } else if (args.length >= 3 && args[2].equalsIgnoreCase("info") && args[3].equalsIgnoreCase("permissions")) {
                 // group [name] info permissions command
