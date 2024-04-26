@@ -9,7 +9,7 @@ public class UpdateGroupCommand {
         if (groupName == null || groupName.isEmpty() || newName == null || newName.isEmpty()) {
             return false;
         }
-        Integer groupname=groupService.getGroupByName(groupName);
+        Integer groupname=groupService.getGroupIdByName(groupName);
         //convert to a Group object
         Group group = new Group();
         group.setName(newName);

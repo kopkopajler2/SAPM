@@ -15,6 +15,6 @@ public interface GroupMapper {
 
     Integer getGroupByName(String name);
     boolean updateGroup(Group group) ;
-
+    Integer getGroupIdByName(String groupName);
     //int getGroupByName(String name);
 }

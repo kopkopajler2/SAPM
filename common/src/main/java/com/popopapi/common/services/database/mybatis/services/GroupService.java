@@ -80,4 +80,12 @@ public class GroupService implements GroupMapper{
             return result;
         }
     }
+
+   public Integer getGroupIdByName(String groupName) {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            GroupMapper groupMapper = sqlSession.getMapper(GroupMapper.class);
+            return groupMapper.getGroupIdByName(groupName);
+        }
+    }
 }
