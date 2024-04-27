@@ -35,4 +35,11 @@
         WHERE player_id = #{playerId}
     </select>
 
+
+    <select id="playerHasPermission" resultType="java.lang.Boolean">
+        SELECT CASE WHEN COUNT(*) > 0 THEN true ELSE false END
+        FROM player_permissions
+        WHERE player_id = #{playerId} AND permission_id = #{permissionId}
+    </select>
+
 </mapper>

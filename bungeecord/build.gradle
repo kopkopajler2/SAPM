@@ -10,6 +10,6 @@ dependencies {
 shadowJar {
     configurations = [project.configurations.runtimeClasspath]
 
-    relocate 'example.lib', 'com.charliejoseph.plugin.libs.example' // Relocate this lib
+    relocate 'example.lib', 'com.popopapi.plugin.libs.example' // Relocate this lib
     minimize()
 }

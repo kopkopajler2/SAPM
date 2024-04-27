@@ -40,21 +40,21 @@ public class BukkitCommands {
             CreateGroupCommand createGroupCommand = new CreateGroupCommand();
 
 
-                if (createGroupCommand.createGroup(args[1])) {
-                    sender.sendMessage("Group created!");
-                } else {
-                    sender.sendMessage("Failed to create group!");
+            if (createGroupCommand.createGroup(args[1])) {
+                sender.sendMessage("Group created!");
+            } else {
+                sender.sendMessage("Failed to create group!");
 
             }
             return true;
         } else if (args.length >= 2 && args[0].equalsIgnoreCase("deletegroup")) {
             DeleteGroupCommand deleteGroupCommand = new DeleteGroupCommand();
 
-                if (deleteGroupCommand.deleteGroup(args[1])) {
-                    sender.sendMessage("Group deleted!");
-                } else {
-                    sender.sendMessage("Failed to delete group!");
-                }
+            if (deleteGroupCommand.deleteGroup(args[1])) {
+                sender.sendMessage("Group deleted!");
+            } else {
+                sender.sendMessage("Failed to delete group!");
+            }
 
 
             return true;
@@ -190,10 +190,10 @@ public class BukkitCommands {
             } else if (args.length >= 3 && args[2].equalsIgnoreCase("info")) {
                 // player [name] info command
                 String playerName = args[1];
-                // TODO: Implement showing player info
                 sender.sendMessage(playerName+ " belongs to the following groups: ");
                 sender.sendMessage(String.join(", ", getPlayerGroupsCommand.getPlayerGroups(playerName)));
                 return true;
+
             }
         }
         return false;

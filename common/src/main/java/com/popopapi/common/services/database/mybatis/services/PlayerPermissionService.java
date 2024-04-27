@@ -50,4 +50,13 @@ public class PlayerPermissionService implements PlayerPermissionMapper{
         }
     }
 
+    public boolean playerHasPermission(Integer playerId, Integer permissionId) {
+          SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+            try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+                PlayerPermissionMapper playerPermissionMapper = sqlSession.getMapper(PlayerPermissionMapper.class);
+                return playerPermissionMapper.playerHasPermission(playerId, permissionId);
+            }
+
+    }
+
 }

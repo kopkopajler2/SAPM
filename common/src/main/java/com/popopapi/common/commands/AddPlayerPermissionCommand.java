@@ -9,20 +9,13 @@ public class AddPlayerPermissionCommand {
     PlayerService playerService = new PlayerService();
     PermissionService permissionService = new PermissionService();
     public boolean addPlayerPermission(String playerName, String permissionName) {
-        //get permission id  by name
         Integer permissionId = permissionService.getPermissionByName(permissionName);
-        //if permissionId is null, return false
-        if (permissionId == null)  {
-            return false;
-        }
-        //get player id by name
         Integer playerId = playerService.getPlayerIdByName(playerName);
-        //return if null
-        if (playerId == null) {
+
+        if (permissionId == null || playerId == null || playerPermissionService.playerHasPermission(playerId, permissionId)) {
             return false;
         }
-       return  playerPermissionService.addPermissionToPlayer(playerId, permissionId);
 
-
+        return playerPermissionService.addPermissionToPlayer(playerId, permissionId);
     }
 }
