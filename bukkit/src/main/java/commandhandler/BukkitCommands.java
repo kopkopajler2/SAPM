@@ -155,6 +155,11 @@ public class BukkitCommands {
                 String playerName = args[1];
                 String permission = args[4];
                 // TODO: Implement adding permission to the player
+                if(addPlayerPermissionCommand.addPlayerPermission(playerName, permission)) {
+                    sender.sendMessage("Added permission " + permission + " to player " + playerName);
+                } else {
+                    sender.sendMessage("Failed to add permission " + permission + " to player " + playerName);
+                }
 
                 return true;
             } else if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("remove")) {
