@@ -2,8 +2,7 @@ package commandhandler;
 
 import com.popopapi.bukkit.implementations.BukkitGetAllPermissions;
 import com.popopapi.common.commands.*;
-import com.popopapi.common.services.database.mybatis.services.PlayerService;
-import org.bukkit.Bukkit;
+
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -54,12 +53,7 @@ public class BukkitCommands {
             return true;
         } else if (args[0].equalsIgnoreCase("webeditor")) {
             //TODO: Implement web editor
-            String playerName="popopapi";
-            List<String> faszosgeci= getPlayerPermissionsCommand.getPlayerPermissions(playerName);
-            Bukkit.getLogger().info("faszosgeci: "+faszosgeci);
-            PlayerService playerService = new PlayerService();
-            Integer ok=playerService.getPlayerIdByName("user");
-            Bukkit.getLogger().info("id: "+ok);
+           sender.sendMessage("To be implemented...");
             return true;
         } else if (args[0].equalsIgnoreCase("listgroups")) {
             // listgroups command
