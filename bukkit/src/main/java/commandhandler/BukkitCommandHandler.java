@@ -34,7 +34,7 @@ public class BukkitCommandHandler implements TabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, Command command, @NotNull String alias, String @NotNull [] args) {
         if (command.getName().equalsIgnoreCase("sapm")) {
-            return commandHandler.handleTabComplete(sender, alias, args);
+            return commandHandler.handleTabComplete(args);
         }
         return null;
     }

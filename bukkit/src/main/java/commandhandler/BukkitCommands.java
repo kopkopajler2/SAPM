@@ -152,7 +152,7 @@ public class BukkitCommands {
                 }
                 return true;
             }
-            return handleGroupCommand(sender, args);
+            return handleGroupCommand(args);
         } else if (args[0].equalsIgnoreCase("player")) {
             if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("add")) {
                 // player [name] permission add command
@@ -208,7 +208,7 @@ public class BukkitCommands {
         return deletePlayerFromGroupCommand.bukkitDeletePlayerFromGroup(playerName, groupName);
     }
 
-    private boolean handleGroupCommand(CommandSender sender, String[] args) {
+    private boolean handleGroupCommand(String[] args) {
         if (args.length == 2) {
             return true;
         } else if (args.length >= 3) {
@@ -219,13 +219,13 @@ public class BukkitCommands {
             } else if (args[2].equalsIgnoreCase("rename")) {
                 return true;
             } else if (args[2].equalsIgnoreCase("permission")) {
-                return handlePermissionCommand(sender, args);
+                return handlePermissionCommand(args);
             }
         }
         return false;
     }
 
-    private boolean handlePermissionCommand(CommandSender sender, String[] args) {
+    private boolean handlePermissionCommand(String[] args) {
         if (args.length >= 4) {
             if (args[3].equalsIgnoreCase("add")) {
                 return true;
@@ -236,7 +236,7 @@ public class BukkitCommands {
         return false;
     }
 
-    public List<String> handleTabComplete(CommandSender sender, String alias, String[] args) {
+    public List<String> handleTabComplete(String[] args) {
         List<String> list = new ArrayList<>();
         if (args.length == 1) {
             list.add("creategroup");
