@@ -5,7 +5,7 @@ import com.popopapi.common.commands.*;
 import com.popopapi.common.services.database.mybatis.services.PlayerService;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.java.JavaPlugin;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class BukkitCommands {
     private  final RemovePlayerPermissionCommand removePlayerPermissionCommand = new RemovePlayerPermissionCommand();
     private  final GetPlayerPermissionsCommand getPlayerPermissionsCommand = new GetPlayerPermissionsCommand();
     private final GetPlayerGroupsCommand getPlayerGroupsCommand = new GetPlayerGroupsCommand();
-    public BukkitCommands(JavaPlugin plugin) {
+    public BukkitCommands() {
     }
 
     public boolean handleCommand(CommandSender sender, String[] args) {

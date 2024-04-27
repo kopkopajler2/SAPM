@@ -14,7 +14,7 @@ public class BukkitCommandHandler implements TabExecutor {
     private final BukkitCommands commandHandler;
     public BukkitCommandHandler(JavaPlugin plugin) {
         this.bukkitAssignPermissions = new BukkitAssignPermissions(new PermissionRetrieverService(), plugin);
-        this.commandHandler = new BukkitCommands(plugin);
+        this.commandHandler = new BukkitCommands();
     }
 
 
