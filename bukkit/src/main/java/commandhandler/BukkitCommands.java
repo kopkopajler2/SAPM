@@ -1,15 +1,11 @@
 package commandhandler;
 
 import com.popopapi.bukkit.implementations.BukkitGetAllPermissions;
-import com.popopapi.bukkit.implementations.events.BukkitAssignPermissions;
 import com.popopapi.common.commands.*;
 import com.popopapi.common.services.database.mybatis.services.PlayerService;
-import com.popopapi.common.services.permissions.PermissionRetrieverService;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +17,6 @@ public class BukkitCommands {
     private final GetGroupPermissionsCommand getGroupPermissionsCommand = new GetGroupPermissionsCommand();
     private final RemovePermissionFromGroupCommand removePermissionFromGroupCommand = new RemovePermissionFromGroupCommand();
     private final ClearPlayersFromGroupCommand clearPlayersFromGroupCommand = new ClearPlayersFromGroupCommand();
-    private final BukkitAssignPermissions bukkitAssignPermissions;
     private final ClearPermissionsFromGroupCommand clearPermissionsFromGroupCommand = new ClearPermissionsFromGroupCommand();
     private final GetGroupPlayersCommand getGroupPlayersCommand = new GetGroupPlayersCommand();
     private final UpdateGroupCommand updateGroupCommand = new UpdateGroupCommand();
@@ -30,7 +25,6 @@ public class BukkitCommands {
     private  final GetPlayerPermissionsCommand getPlayerPermissionsCommand = new GetPlayerPermissionsCommand();
     private final GetPlayerGroupsCommand getPlayerGroupsCommand = new GetPlayerGroupsCommand();
     public BukkitCommands(JavaPlugin plugin) {
-        this.bukkitAssignPermissions = new BukkitAssignPermissions(new PermissionRetrieverService(), plugin);
     }
 
     public boolean handleCommand(CommandSender sender, String[] args) {
