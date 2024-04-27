@@ -185,7 +185,8 @@ public class BukkitCommands {
                 // player [name] permission show command
                 String playerName = args[1];
                 // TODO: Implement showing player permissions
-                sender.sendMessage("Permissions for player " + playerName);
+
+                sender.sendMessage("Permissions for player " + playerName + ": " + String.join(", ", getPlayerPermissionsCommand.getPlayerPermissions(playerName)));
                 return true;
             } else if (args.length >= 3 && args[2].equalsIgnoreCase("info")) {
                 // player [name] info command
