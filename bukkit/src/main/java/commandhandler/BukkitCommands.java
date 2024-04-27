@@ -3,7 +3,9 @@ package commandhandler;
 import com.popopapi.bukkit.implementations.BukkitGetAllPermissions;
 import com.popopapi.bukkit.implementations.events.BukkitAssignPermissions;
 import com.popopapi.common.commands.*;
+import com.popopapi.common.services.database.mybatis.services.PlayerService;
 import com.popopapi.common.services.permissions.PermissionRetrieverService;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,6 +26,8 @@ public class BukkitCommands {
     private final GetGroupPlayersCommand getGroupPlayersCommand = new GetGroupPlayersCommand();
     private final UpdateGroupCommand updateGroupCommand = new UpdateGroupCommand();
     private final AddPlayerPermissionCommand addPlayerPermissionCommand = new AddPlayerPermissionCommand();
+    private  final RemovePlayerPermissionCommand removePlayerPermissionCommand = new RemovePlayerPermissionCommand();
+    private  final GetPlayerPermissionsCommand getPlayerPermissionsCommand = new GetPlayerPermissionsCommand();
 
     public BukkitCommands(JavaPlugin plugin) {
         this.bukkitAssignPermissions = new BukkitAssignPermissions(new PermissionRetrieverService(), plugin);
@@ -35,27 +39,33 @@ public class BukkitCommands {
         } else if (args.length >= 2 && args[0].equalsIgnoreCase("creategroup")) {
             CreateGroupCommand createGroupCommand = new CreateGroupCommand();
 
-            if (sender instanceof Player player) {
+
                 if (createGroupCommand.createGroup(args[1])) {
-                    player.sendMessage("Group created!");
+                    sender.sendMessage("Group created!");
                 } else {
-                    player.sendMessage("Failed to create group!");
-                }
+                    sender.sendMessage("Failed to create group!");
+
             }
             return true;
         } else if (args.length >= 2 && args[0].equalsIgnoreCase("deletegroup")) {
             DeleteGroupCommand deleteGroupCommand = new DeleteGroupCommand();
-            if (sender instanceof Player player) {
+
                 if (deleteGroupCommand.deleteGroup(args[1])) {
-                    player.sendMessage("Group deleted!");
+                    sender.sendMessage("Group deleted!");
                 } else {
-                    player.sendMessage("Failed to delete group!");
+                    sender.sendMessage("Failed to delete group!");
                 }
-            }
+
 
             return true;
         } else if (args[0].equalsIgnoreCase("webeditor")) {
             //TODO: Implement web editor
+            String playerName="popopapi";
+            List<String> faszosgeci= getPlayerPermissionsCommand.getPlayerPermissions(playerName);
+            Bukkit.getLogger().info("faszosgeci: "+faszosgeci);
+            PlayerService playerService = new PlayerService();
+            Integer ok=playerService.getPlayerIdByName("user");
+            Bukkit.getLogger().info("id: "+ok);
             return true;
         } else if (args[0].equalsIgnoreCase("listgroups")) {
             // listgroups command
@@ -154,7 +164,6 @@ public class BukkitCommands {
                 // player [name] permission add command
                 String playerName = args[1];
                 String permission = args[4];
-                // TODO: Implement adding permission to the player
                 if(addPlayerPermissionCommand.addPlayerPermission(playerName, permission)) {
                     sender.sendMessage("Added permission " + permission + " to player " + playerName);
                 } else {
@@ -166,8 +175,11 @@ public class BukkitCommands {
                 // player [name] permission remove command
                 String playerName = args[1];
                 String permission = args[4];
-                // TODO: Implement removing permission from the player
-                sender.sendMessage("Removing permission " + permission + " from player " + playerName);
+                if(removePlayerPermissionCommand.deletePlayerPermissions(playerName, permission)) {
+                    sender.sendMessage("Removed permission " + permission + " from player " + playerName);
+                } else {
+                    sender.sendMessage("Failed to remove permission " + permission + " from player " + playerName);
+                }
                 return true;
             } else if (args.length >= 4 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("show")) {
                 // player [name] permission show command
@@ -283,9 +295,16 @@ public class BukkitCommands {
                 String groupName = args[1];
                 list.addAll(getGroupPermissionsCommand.getGroupPermissions(groupName));
             }
-        } else if (args.length == 5 && args[0].equalsIgnoreCase("player") && args[2].equalsIgnoreCase("permission") && (args[3].equalsIgnoreCase("add") || args[3].equalsIgnoreCase("remove"))) {
-            new BukkitGetAllPermissions();
-            list.addAll(getAllPermissionNamesCommand.getAllPermissionNames());
+        }  else if (args.length == 5 && args[0].equalsIgnoreCase("player") && args[2].equalsIgnoreCase("permission")) {
+            if (args[3].equalsIgnoreCase("add")) {
+                list.addAll(getAllPermissionNamesCommand.getAllPermissionNames());
+            } else if (args[3].equalsIgnoreCase("remove")) {
+
+                String playerName = args[1];
+
+                list.addAll(getPlayerPermissionsCommand.getPlayerPermissions(playerName));
+
+            }
         }
         return list;
     }

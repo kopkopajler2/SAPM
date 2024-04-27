@@ -21,6 +21,13 @@
         WHERE player_id = #{playerId}
     </select>
 
+    <select id="getPlayerPermissionByName" resultType="java.lang.String">
+        SELECT permissions.permission
+        FROM player_permissions
+        INNER JOIN permissions ON player_permissions.permission_id = permissions.id
+        WHERE player_permissions.player_id = #{playerId}
+    </select>
+
 
     <select id="getPermissionIdsByPlayerId" resultType="java.lang.Integer">
         SELECT permission_id

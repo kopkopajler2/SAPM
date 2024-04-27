@@ -35,6 +35,13 @@ public class PlayerPermissionService implements PlayerPermissionMapper{
             return playerPermissionMapper.getPlayerPermissions(playerId);
         }
     }
+    public List<String> getPlayerPermissionByName(Integer playerId) {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            PlayerPermissionMapper playerPermissionMapper = sqlSession.getMapper(PlayerPermissionMapper.class);
+            return playerPermissionMapper.getPlayerPermissionByName(playerId);
+        }
+    }
     public List<Integer> getPermissionIdsByPlayerId(Integer playerId) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
