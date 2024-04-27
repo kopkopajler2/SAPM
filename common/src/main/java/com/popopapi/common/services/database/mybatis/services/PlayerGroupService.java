@@ -130,4 +130,13 @@ public class PlayerGroupService implements PlayerGroupMapper{
             return playerGroupMapper.getAllPlayerNamesFromGroup(groupId);
         }
     }
+
+   public List<String > getGroupNamesByPlayerId(Integer playerId) {
+        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            PlayerGroupMapper playerGroupMapper = sqlSession.getMapper(PlayerGroupMapper.class);
+            return playerGroupMapper.getGroupNamesByPlayerId(playerId);
+        }
+    }
+
 }

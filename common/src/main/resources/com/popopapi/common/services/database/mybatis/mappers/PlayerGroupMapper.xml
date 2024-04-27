@@ -52,6 +52,12 @@
     </delete>
 
 
+    <select id="getGroupNamesByPlayerId" resultType="java.lang.String">
+        SELECT name
+        FROM groups
+        JOIN player_groups ON groups.id = player_groups.group_id
+        WHERE player_groups.player_id = #{playerId}
+    </select>
 
 
 

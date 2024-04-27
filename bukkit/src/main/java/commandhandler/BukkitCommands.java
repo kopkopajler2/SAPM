@@ -28,7 +28,7 @@ public class BukkitCommands {
     private final AddPlayerPermissionCommand addPlayerPermissionCommand = new AddPlayerPermissionCommand();
     private  final RemovePlayerPermissionCommand removePlayerPermissionCommand = new RemovePlayerPermissionCommand();
     private  final GetPlayerPermissionsCommand getPlayerPermissionsCommand = new GetPlayerPermissionsCommand();
-
+    private final GetPlayerGroupsCommand getPlayerGroupsCommand = new GetPlayerGroupsCommand();
     public BukkitCommands(JavaPlugin plugin) {
         this.bukkitAssignPermissions = new BukkitAssignPermissions(new PermissionRetrieverService(), plugin);
     }
@@ -184,7 +184,6 @@ public class BukkitCommands {
             } else if (args.length >= 4 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("show")) {
                 // player [name] permission show command
                 String playerName = args[1];
-                // TODO: Implement showing player permissions
 
                 sender.sendMessage("Permissions for player " + playerName + ": " + String.join(", ", getPlayerPermissionsCommand.getPlayerPermissions(playerName)));
                 return true;
@@ -192,7 +191,8 @@ public class BukkitCommands {
                 // player [name] info command
                 String playerName = args[1];
                 // TODO: Implement showing player info
-                sender.sendMessage("Info for player " + playerName);
+                sender.sendMessage(playerName+ " belongs to the following groups: ");
+                sender.sendMessage(String.join(", ", getPlayerGroupsCommand.getPlayerGroups(playerName)));
                 return true;
             }
         }

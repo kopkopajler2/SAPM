@@ -20,4 +20,6 @@ public interface PlayerGroupMapper  {
     boolean deletePlayerFromGroup(@Param("playerId") Integer playerId, @Param("groupId") Integer groupId);
     boolean deleteAllPlayersFromGroup(Integer groupId);
     List<String>getAllPlayerNamesFromGroup(Integer groupId);
+    List<String > getGroupNamesByPlayerId(Integer playerId);
+
 }
