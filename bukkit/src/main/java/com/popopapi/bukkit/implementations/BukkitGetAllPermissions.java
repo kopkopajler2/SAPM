@@ -3,7 +3,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.permissions.Permission;
 import java.util.ArrayList;
 import java.util.List;
-import com.popopapi.common.services.database.mybatis.services.PermissionService;
+import com.popopapi.common.services.database.mybatis.databaseservices.PermissionService;
 public class BukkitGetAllPermissions {
     public BukkitGetAllPermissions() {
         saveAllPermissions();

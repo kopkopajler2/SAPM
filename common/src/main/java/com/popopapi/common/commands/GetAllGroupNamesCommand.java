@@ -1,5 +1,5 @@
 package com.popopapi.common.commands;
-import com.popopapi.common.services.database.mybatis.services.GroupService;
+import com.popopapi.common.services.database.mybatis.databaseservices.GroupService;
 
 import java.util.List;
 

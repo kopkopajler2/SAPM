@@ -1,8 +1,8 @@
 package com.popopapi.common.commands;
 
-import com.popopapi.common.services.database.mybatis.services.GroupPermissionService;
-import com.popopapi.common.services.database.mybatis.services.PermissionService;
-import com.popopapi.common.services.database.mybatis.services.PlayerGroupService;
+import com.popopapi.common.services.database.mybatis.databaseservices.GroupPermissionService;
+import com.popopapi.common.services.database.mybatis.databaseservices.PermissionService;
+import com.popopapi.common.services.database.mybatis.databaseservices.PlayerGroupService;
 
 public class AddPermissionToGroupCommand {
     GroupPermissionService groupPermissionService = new GroupPermissionService();

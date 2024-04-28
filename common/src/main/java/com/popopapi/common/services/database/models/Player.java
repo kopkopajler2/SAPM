@@ -24,10 +24,6 @@ package com.popopapi.common.services.database.models;
     public String getUsername() {
         return username;
     }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
 
 
 

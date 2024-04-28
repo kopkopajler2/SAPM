@@ -3,6 +3,6 @@ package com.popopapi.common.services.permissions;
 
 import java.util.List;
 
-public interface PermissionAssignment {
+public interface PermissionRetrieval {
     List<String> getPlayerPermissions(String uuid);
 }

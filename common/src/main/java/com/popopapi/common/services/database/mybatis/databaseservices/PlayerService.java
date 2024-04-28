@@ -1,4 +1,4 @@
-package com.popopapi.common.services.database.mybatis.services;
+package com.popopapi.common.services.database.mybatis.databaseservices;
 
 import com.popopapi.common.services.database.mybatis.mappers.PlayerMapper;
 import com.popopapi.common.services.database.models.Player;
@@ -24,21 +24,6 @@ public class PlayerService {
         }
     }
 
-    public List<String> getPlayerPermissions(String uuid) {
-        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
-        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            PlayerMapper playerMapper = sqlSession.getMapper(PlayerMapper.class);
-            return playerMapper.getPlayerPermissions(uuid);
-        }
-    }
-    //get player id by uuid
-    public Integer getPlayerIdByUUID(String uuid) {
-        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
-        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            PlayerMapper playerMapper = sqlSession.getMapper(PlayerMapper.class);
-            return playerMapper.getPlayerIdByUUID(uuid);
-        }
-    }
     //get all player names
     public List<String> getAllPlayerNames() {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();

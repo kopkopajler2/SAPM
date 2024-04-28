@@ -1,5 +1,6 @@
 package com.popopapi.bukkit.implementations.events;
 
+import com.popopapi.bukkit.implementations.BukkitAssignPermissions;
 import com.popopapi.common.events.PlayerJoinListener;
 import com.popopapi.common.commands.CreatePlayerCommand;
 import com.popopapi.common.services.permissions.PermissionRetrieverService;

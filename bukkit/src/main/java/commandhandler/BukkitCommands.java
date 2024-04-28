@@ -30,161 +30,190 @@ public class BukkitCommands {
         if (args.length == 0) {
             return true;
         } else if (args.length >= 2 && args[0].equalsIgnoreCase("creategroup")) {
-            CreateGroupCommand createGroupCommand = new CreateGroupCommand();
-
-
-            if (createGroupCommand.createGroup(args[1])) {
-                sender.sendMessage("Group created!");
-            } else {
-                sender.sendMessage("Failed to create group!");
-
-            }
-            return true;
+            return handleCreateGroupCommand(sender, args[1]);
         } else if (args.length >= 2 && args[0].equalsIgnoreCase("deletegroup")) {
-            DeleteGroupCommand deleteGroupCommand = new DeleteGroupCommand();
-
-            if (deleteGroupCommand.deleteGroup(args[1])) {
-                sender.sendMessage("Group deleted!");
-            } else {
-                sender.sendMessage("Failed to delete group!");
-            }
-
-
-            return true;
+            return handleDeleteGroupCommand(sender, args[1]);
         } else if (args[0].equalsIgnoreCase("webeditor")) {
-            //TODO: Implement web editor
-           sender.sendMessage("To be implemented...");
-            return true;
+            return handleWebEditorCommand(sender);
         } else if (args[0].equalsIgnoreCase("listgroups")) {
-            // listgroups command
-            sender.sendMessage("List of groups: " + String.join(", ", getAllGroupNamesCommand.getAllGroupNames()));
-            return true;
+            return handleListGroupsCommand(sender);
         } else if (args[0].equalsIgnoreCase("group")) {
-            if (args.length >= 4 && args[2].equalsIgnoreCase("addplayer")) {
-                String groupName = args[1];
-                String playerName = args[3];
-                // Add player to the group
-                if (addPlayerToGroup(groupName, playerName)) {
-                    sender.sendMessage("Player " + playerName + " added to group " + groupName);
-                } else {
-                    sender.sendMessage("Failed to add player " + playerName + " to group " + groupName);
-                }
-                return true;
-            } else if (args.length >= 4 && args[2].equalsIgnoreCase("deleteplayer")) {
-                String groupName = args[1];
-                String playerName = args[3];
-                // Delete player from the group
-                if (deletePlayerFromGroup(groupName, playerName)) {
-                    sender.sendMessage("Player " + playerName + " deleted from group " + groupName);
-                } else {
-                    sender.sendMessage("Failed to delete player " + playerName + " from group " + groupName);
-                }
-                return true;
-            } else if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("add")) {
-                String groupName = args[1];
-                String permission = args[4];
-                // Add permission to the group
-                if (addPermissionToGroup(groupName, permission)) {
-                    sender.sendMessage("Permission " + permission + " added to group " + groupName);
-                } else {
-                    sender.sendMessage("Failed to add permission " + permission + " to group " + groupName);
-                }
-                return true;
-            } else if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("remove")) {
-                String groupName = args[1];
-                String permission = args[4];
-                // Remove permission from the group
-                if (removePermissionFromGroupCommand.removePermissionFromGroup(groupName, permission)) {
-                    sender.sendMessage("Permission " + permission + " removed from group " + groupName);
-                } else {
-                    sender.sendMessage("Failed to remove permission " + permission + " from group " + groupName);
-                }
-                return true;
-            } else if (args.length >= 4 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("show")) {
-                // group [name] permission show command
-                String groupName = args[1];
-                sender.sendMessage("Permissions for group " + groupName + ": " + String.join(", ", getGroupPermissionsCommand.getGroupPermissions(groupName)));
-                return true;
-            } else if (args.length >= 4 && args[2].equalsIgnoreCase("clear") && args[3].equalsIgnoreCase("players")) {
-                // group [name] clear players command
-                String groupName = args[1];
-                if (clearPlayersFromGroupCommand.clearPlayersFromGroupCommand(groupName)) {
-                    sender.sendMessage("Cleared players from group " + groupName);
-                } else {
-                    sender.sendMessage("Failed to clear players from group " + groupName);
-                }
-                return true;
-            } else if (args.length >= 4 && args[2].equalsIgnoreCase("clear") && args[3].equalsIgnoreCase("permissions")) {
-                // group [name] clear permissions command
-                String groupName = args[1];
-                if (clearPermissionsFromGroupCommand.clearPermissionsFromGroupCommand(groupName)) {
-                    sender.sendMessage("Cleared permissions from group " + groupName);
-                } else {
-                    sender.sendMessage("Failed to clear permissions from group " + groupName);
-                }
-                return true;
-            } else if (args.length >= 4 && args[2].equalsIgnoreCase("info") && args[3].equalsIgnoreCase("players")) {
-                // group [name] info players command
-                String groupName = args[1];
-                List<String> groupnames = getGroupPlayersCommand.getGroupPlayers(groupName);
-                sender.sendMessage("Players in group " + groupName + ": " + String.join(", ", groupnames));
-                return true;
-            } else if (args.length >= 4 && args[2].equalsIgnoreCase("info") && args[3].equalsIgnoreCase("permissions")) {
-                // group [name] info permissions command
-                String groupName = args[1];
-                sender.sendMessage("Permissions for group " + groupName + ": " + String.join(", ", getGroupPermissionsCommand.getGroupPermissions(groupName)));
-                return true;
-            } else if (args.length >= 4 && args[2].equalsIgnoreCase("rename")) {
-                // group [name] rename command
-                String groupName = args[1];
-                String newGroupName = args[3];
-                // Implement renaming the group
-                if (updateGroupCommand.updateGroup(groupName, newGroupName)) {
-                    sender.sendMessage("Group renamed to " + newGroupName);
-                } else {
-                    sender.sendMessage("Failed to rename group to " + newGroupName);
-                }
-                return true;
-            }
-            return handleGroupCommand(args);
+            return handleGroupCommand(sender, args);
         } else if (args[0].equalsIgnoreCase("player")) {
-            if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("add")) {
-                // player [name] permission add command
-                String playerName = args[1];
-                String permission = args[4];
-                if(addPlayerPermissionCommand.addPlayerPermission(playerName, permission)) {
-                    sender.sendMessage("Added permission " + permission + " to player " + playerName);
-                } else {
-                    sender.sendMessage("Failed to add permission " + permission + " to player " + playerName);
-                }
-
-                return true;
-            } else if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("remove")) {
-                // player [name] permission remove command
-                String playerName = args[1];
-                String permission = args[4];
-                if(removePlayerPermissionCommand.deletePlayerPermissions(playerName, permission)) {
-                    sender.sendMessage("Removed permission " + permission + " from player " + playerName);
-                } else {
-                    sender.sendMessage("Failed to remove permission " + permission + " from player " + playerName);
-                }
-                return true;
-            } else if (args.length >= 4 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("show")) {
-                // player [name] permission show command
-                String playerName = args[1];
-
-                sender.sendMessage("Permissions for player " + playerName + ": " + String.join(", ", getPlayerPermissionsCommand.getPlayerPermissions(playerName)));
-                return true;
-            } else if (args.length >= 3 && args[2].equalsIgnoreCase("info")) {
-                // player [name] info command
-                String playerName = args[1];
-                sender.sendMessage(playerName+ " belongs to the following groups: ");
-                sender.sendMessage(String.join(", ", getPlayerGroupsCommand.getPlayerGroups(playerName)));
-                return true;
-
-            }
+            return handlePlayerCommand(sender, args);
         }
         return false;
+    }
+
+    private boolean handleCreateGroupCommand(CommandSender sender, String groupName) {
+        CreateGroupCommand createGroupCommand = new CreateGroupCommand();
+        if (createGroupCommand.createGroup(groupName)) {
+            sender.sendMessage("Group created!");
+        } else {
+            sender.sendMessage("Failed to create group!");
+        }
+        return true;
+    }
+
+    private boolean handleDeleteGroupCommand(CommandSender sender, String groupName) {
+        DeleteGroupCommand deleteGroupCommand = new DeleteGroupCommand();
+        if (deleteGroupCommand.deleteGroup(groupName)) {
+            sender.sendMessage("Group deleted!");
+        } else {
+            sender.sendMessage("Failed to delete group!");
+        }
+        return true;
+    }
+
+    private boolean handleWebEditorCommand(CommandSender sender) {
+        sender.sendMessage("To be implemented...");
+        return true;
+    }
+
+    private boolean handleListGroupsCommand(CommandSender sender) {
+        sender.sendMessage("List of groups: " + String.join(", ", getAllGroupNamesCommand.getAllGroupNames()));
+        return true;
+    }
+
+    private boolean handleGroupCommand(CommandSender sender, String[] args) {
+        if (args.length >= 4 && args[2].equalsIgnoreCase("addplayer")) {
+            return handleAddPlayerToGroupCommand(sender, args[1], args[3]);
+        } else if (args.length >= 4 && args[2].equalsIgnoreCase("deleteplayer")) {
+            return handleDeletePlayerFromGroupCommand(sender, args[1], args[3]);
+        } else if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("add")) {
+            return handleAddPermissionToGroupCommand(sender, args[1], args[4]);
+        } else if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("remove")) {
+            return handleRemovePermissionFromGroupCommand(sender, args[1], args[4]);
+        } else if (args.length >= 4 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("show")) {
+            return handleShowGroupPermissionsCommand(sender, args[1]);
+        } else if (args.length >= 4 && args[2].equalsIgnoreCase("clear") && args[3].equalsIgnoreCase("players")) {
+            return handleClearGroupPlayersCommand(sender, args[1]);
+        } else if (args.length >= 4 && args[2].equalsIgnoreCase("clear") && args[3].equalsIgnoreCase("permissions")) {
+            return handleClearGroupPermissionsCommand(sender, args[1]);
+        } else if (args.length >= 4 && args[2].equalsIgnoreCase("info") && args[3].equalsIgnoreCase("players")) {
+            return handleShowGroupPlayersCommand(sender, args[1]);
+        } else if (args.length >= 4 && args[2].equalsIgnoreCase("info") && args[3].equalsIgnoreCase("permissions")) {
+            return handleShowGroupPermissionsCommand(sender, args[1]);
+        } else if (args.length >= 4 && args[2].equalsIgnoreCase("rename")) {
+            return handleRenameGroupCommand(sender, args[1], args[3]);
+        }
+        return false;
+    }
+
+    private boolean handlePlayerCommand(CommandSender sender, String[] args) {
+        if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("add")) {
+            return handleAddPlayerPermissionCommand(sender, args[1], args[4]);
+        } else if (args.length >= 5 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("remove")) {
+            return handleRemovePlayerPermissionCommand(sender, args[1], args[4]);
+        } else if (args.length >= 4 && args[2].equalsIgnoreCase("permission") && args[3].equalsIgnoreCase("show")) {
+            return handleShowPlayerPermissionsCommand(sender, args[1]);
+        } else if (args.length >= 3 && args[2].equalsIgnoreCase("info")) {
+            return handleShowPlayerGroupsCommand(sender, args[1]);
+        }
+        return false;
+    }
+
+    private boolean handleAddPlayerToGroupCommand(CommandSender sender, String groupName, String playerName) {
+        if (addPlayerToGroup(groupName, playerName)) {
+            sender.sendMessage("Player " + playerName + " added to group " + groupName);
+        } else {
+            sender.sendMessage("Failed to add player " + playerName + " to group " + groupName);
+        }
+        return true;
+    }
+
+    private boolean handleDeletePlayerFromGroupCommand(CommandSender sender, String groupName, String playerName) {
+        if (deletePlayerFromGroup(groupName, playerName)) {
+            sender.sendMessage("Player " + playerName + " deleted from group " + groupName);
+        } else {
+            sender.sendMessage("Failed to delete player " + playerName + " from group " + groupName);
+        }
+        return true;
+    }
+
+    private boolean handleAddPermissionToGroupCommand(CommandSender sender, String groupName, String permission) {
+        if (addPermissionToGroup(groupName, permission)) {
+            sender.sendMessage("Permission " + permission + " added to group " + groupName);
+        } else {
+            sender.sendMessage("Failed to add permission " + permission + " to group " + groupName);
+        }
+        return true;
+    }
+
+    private boolean handleRemovePermissionFromGroupCommand(CommandSender sender, String groupName, String permission) {
+        if (removePermissionFromGroupCommand.removePermissionFromGroup(groupName, permission)) {
+            sender.sendMessage("Permission " + permission + " removed from group " + groupName);
+        } else {
+            sender.sendMessage("Failed to remove permission " + permission + " from group " + groupName);
+        }
+        return true;
+    }
+
+    private boolean handleShowGroupPermissionsCommand(CommandSender sender, String groupName) {
+        sender.sendMessage("Permissions for group " + groupName + ": " + String.join(", ", getGroupPermissionsCommand.getGroupPermissions(groupName)));
+        return true;
+    }
+
+    private boolean handleClearGroupPlayersCommand(CommandSender sender, String groupName) {
+        if (clearPlayersFromGroupCommand.clearPlayersFromGroupCommand(groupName)) {
+            sender.sendMessage("Cleared players from group " + groupName);
+        } else {
+            sender.sendMessage("Failed to clear players from group " + groupName);
+        }
+        return true;
+    }
+
+    private boolean handleClearGroupPermissionsCommand(CommandSender sender, String groupName) {
+        if (clearPermissionsFromGroupCommand.clearPermissionsFromGroupCommand(groupName)) {
+            sender.sendMessage("Cleared permissions from group " + groupName);
+        } else {
+            sender.sendMessage("Failed to clear permissions from group " + groupName);
+        }
+        return true;
+    }
+
+    private boolean handleShowGroupPlayersCommand(CommandSender sender, String groupName) {
+        List<String> groupnames = getGroupPlayersCommand.getGroupPlayers(groupName);
+        sender.sendMessage("Players in group " + groupName + ": " + String.join(", ", groupnames));
+        return true;
+    }
+
+    private boolean handleRenameGroupCommand(CommandSender sender, String groupName, String newGroupName) {
+        if (updateGroupCommand.updateGroup(groupName, newGroupName)) {
+            sender.sendMessage("Group renamed to " + newGroupName);
+        } else {
+            sender.sendMessage("Failed to rename group to " + newGroupName);
+        }
+        return true;
+    }
+
+    private boolean handleAddPlayerPermissionCommand(CommandSender sender, String playerName, String permission) {
+        if (addPlayerPermissionCommand.addPlayerPermission(playerName, permission)) {
+            sender.sendMessage("Added permission " + permission + " to player " + playerName);
+        } else {
+            sender.sendMessage("Failed to add permission " + permission + " to player " + playerName);
+        }
+        return true;
+    }
+
+    private boolean handleRemovePlayerPermissionCommand(CommandSender sender, String playerName, String permission) {
+        if (removePlayerPermissionCommand.deletePlayerPermissions(playerName, permission)) {
+            sender.sendMessage("Removed permission " + permission + " from player " + playerName);
+        } else {
+            sender.sendMessage("Failed to remove permission " + permission + " from player " + playerName);
+        }
+        return true;
+    }
+
+    private boolean handleShowPlayerPermissionsCommand(CommandSender sender, String playerName) {
+        sender.sendMessage("Permissions for player " + playerName + ": " + String.join(", ", getPlayerPermissionsCommand.getPlayerPermissions(playerName)));
+        return true;
+    }
+
+    private boolean handleShowPlayerGroupsCommand(CommandSender sender, String playerName) {
+        sender.sendMessage(playerName + " belongs to the following groups: ");
+        sender.sendMessage(String.join(", ", getPlayerGroupsCommand.getPlayerGroups(playerName)));
+        return true;
     }
 
     private boolean addPermissionToGroup(String groupName, String permission) {

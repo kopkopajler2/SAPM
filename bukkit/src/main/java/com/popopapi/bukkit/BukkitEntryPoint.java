@@ -7,10 +7,7 @@ public class BukkitEntryPoint extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        BukkitInit bukkitInit = new BukkitInit(this);
-
-
-
+        new BukkitInit(this);
 
 
         //send message to console

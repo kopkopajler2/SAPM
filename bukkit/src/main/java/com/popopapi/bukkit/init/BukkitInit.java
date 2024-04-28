@@ -1,11 +1,9 @@
 package com.popopapi.bukkit.init;
-import com.popopapi.bukkit.implementations.BukkitConsoleLogger;
 import com.popopapi.bukkit.implementations.BukkitGetAllPermissions;
 import com.popopapi.bukkit.implementations.events.BukkitPlayerJoinListener;
 import com.popopapi.common.init.StartupInit;
 import com.popopapi.common.services.database.DatabaseSetup;
 import com.popopapi.common.services.database.models.Player;
-import com.popopapi.common.services.logger.MinecraftLogger;
 import com.popopapi.common.services.permissions.PermissionRetrieverService;
 import commandhandler.BukkitCommandHandler;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,7 +16,6 @@ public class BukkitInit implements StartupInit {
 
      public BukkitInit(JavaPlugin plugin) {
         this.plugin = plugin;
-        initLogger();
         initCommands();
         createDatabase();
         savePermissions();
@@ -45,9 +42,7 @@ public class BukkitInit implements StartupInit {
 
     }
 
-    public void initLogger(){
-        MinecraftLogger.setLogger(new BukkitConsoleLogger());
-    }
+
 
     public void setPermissions(Player player) {
 

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class PermissionRetrieverService implements PermissionAssignment {
+public class PermissionRetrieverService implements PermissionRetrieval {
     @Override
     public List<String> getPlayerPermissions(String uuid) {
         SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();

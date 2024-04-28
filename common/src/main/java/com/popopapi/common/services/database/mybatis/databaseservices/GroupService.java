@@ -1,4 +1,4 @@
-package com.popopapi.common.services.database.mybatis.services;
+package com.popopapi.common.services.database.mybatis.databaseservices;
 import com.popopapi.common.services.database.models.Group;
 import com.popopapi.common.services.database.mybatis.DatabaseUtils;
 import com.popopapi.common.services.database.mybatis.mappers.GroupMapper;
@@ -40,14 +40,6 @@ public class GroupService implements GroupMapper{
             return result;
         }
 
-    }
-
-    public int getGroupCountByName(String name) {
-        SqlSessionFactory sqlSessionFactory = DatabaseUtils.getSqlSessionFactory();
-        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            GroupMapper groupMapper = sqlSession.getMapper(GroupMapper.class);
-            return groupMapper.getGroupByName(name);
-        }
     }
 
     public List<String> getAllGroupNames() {

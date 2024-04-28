@@ -8,7 +8,6 @@ public interface StartupInit {
     void initCommands();
     void initListeners();
     void createDatabase();
-    void initLogger();
     void setPermissions(Player player);
     void savePermissions();
 }

@@ -8,7 +8,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.popopapi.common.services.logger.MinecraftLogger;
 
 public class DatabaseSetup {
     private static final String DB_NAME = "sapm.db";
@@ -22,7 +21,6 @@ public class DatabaseSetup {
     }
 
     public void createDatabaseAndTables() {
-        MinecraftLogger.debug("DB URL: " + DB_URL, true);
 
         try {
             // Create the directory if it doesn't exist
@@ -38,7 +36,6 @@ public class DatabaseSetup {
             if (!connection.isValid(5)) {
                 throw new SQLException("Connection is not valid!");
             }
-            MinecraftLogger.info("Connection is valid!");
 
             // Enable foreign keys
             statement.execute("PRAGMA foreign_keys = ON;");
@@ -90,9 +87,8 @@ public class DatabaseSetup {
                     FOREIGN KEY (permission_id) REFERENCES permissions (id)
                 );""");
 
-            MinecraftLogger.info("Database and tables created successfully.");
         } catch (SQLException e) {
-            MinecraftLogger.error("Error creating database and tables: " + e.getMessage(), true);
+            System.err.println("Error creating database and tables: " + e.getMessage());
         }
     }
 }

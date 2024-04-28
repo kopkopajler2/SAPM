@@ -1,7 +1,7 @@
 package com.popopapi.common.commands;
 
-import com.popopapi.common.services.database.mybatis.services.PlayerPermissionService;
-import com.popopapi.common.services.database.mybatis.services.PlayerService;
+import com.popopapi.common.services.database.mybatis.databaseservices.PlayerPermissionService;
+import com.popopapi.common.services.database.mybatis.databaseservices.PlayerService;
 
 import java.util.List;
 

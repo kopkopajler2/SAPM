@@ -1,4 +1,4 @@
-package com.popopapi.common.services.database.mybatis.services;
+package com.popopapi.common.services.database.mybatis.databaseservices;
 
 import com.popopapi.common.services.database.mybatis.DatabaseUtils;
 import com.popopapi.common.services.database.mybatis.mappers.GroupPermissionMapper;

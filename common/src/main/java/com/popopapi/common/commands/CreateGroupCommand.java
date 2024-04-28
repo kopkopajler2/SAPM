@@ -1,7 +1,7 @@
 package com.popopapi.common.commands;
 
 import com.popopapi.common.services.database.models.Group;
-import com.popopapi.common.services.database.mybatis.services.GroupService;
+import com.popopapi.common.services.database.mybatis.databaseservices.GroupService;
 
 public class CreateGroupCommand {
     // Create an instance of the GroupService

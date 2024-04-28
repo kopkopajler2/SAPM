@@ -1,6 +1,6 @@
 package commandhandler;
 
-import com.popopapi.bukkit.implementations.events.BukkitAssignPermissions;
+import com.popopapi.bukkit.implementations.BukkitAssignPermissions;
 import com.popopapi.common.services.permissions.PermissionRetrieverService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

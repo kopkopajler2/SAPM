@@ -1,6 +1,6 @@
 package com.popopapi.common.commands;
 
-import com.popopapi.common.services.database.mybatis.services.PlayerService;
+import com.popopapi.common.services.database.mybatis.databaseservices.PlayerService;
 import com.popopapi.common.services.database.models.Player;
 import com.popopapi.common.events.PlayerJoinListener;
 

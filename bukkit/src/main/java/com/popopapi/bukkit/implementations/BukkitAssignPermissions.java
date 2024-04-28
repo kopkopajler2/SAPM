@@ -1,6 +1,6 @@
-package com.popopapi.bukkit.implementations.events;
+package com.popopapi.bukkit.implementations;
 
-import com.popopapi.common.services.database.mybatis.services.PlayerService;
+import com.popopapi.common.services.database.mybatis.databaseservices.PlayerService;
 import com.popopapi.common.services.permissions.PermissionRetrieverService;
 import org.bukkit.Bukkit;
 

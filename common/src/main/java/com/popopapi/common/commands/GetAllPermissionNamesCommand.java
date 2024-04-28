@@ -1,6 +1,6 @@
 package com.popopapi.common.commands;
 
-import com.popopapi.common.services.database.mybatis.services.PermissionService;
+import com.popopapi.common.services.database.mybatis.databaseservices.PermissionService;
 
 import java.util.List;
 
