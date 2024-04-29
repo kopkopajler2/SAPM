@@ -1,6 +1,7 @@
 package com.popopapi.bukkit.implementations.events;
 
 import com.popopapi.bukkit.implementations.BukkitAssignPermissions;
+import com.popopapi.bukkit.implementations.BukkitGetAllPermissions;
 import com.popopapi.common.events.PlayerJoinListener;
 import com.popopapi.common.commands.CreatePlayerCommand;
 import com.popopapi.common.services.permissions.PermissionRetrieverService;
@@ -21,6 +22,9 @@ public class BukkitPlayerJoinListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+       //fetch permissions just in case they are not in the database
+        new BukkitGetAllPermissions();
+
         String uuid = event.getPlayer().getUniqueId().toString();
         String name = event.getPlayer().getName();
 
