@@ -1,11 +1,19 @@
 name: SpigotAdvancedPermissionManager
 version: '${version}'
 main: com.popopapi.bukkit.BukkitEntryPoint
+api-version: "1.16"
+author: popopapi
+description: A simple plugin that allows permission management for minecraft servers.
+load: STARTUP
+
+
+
 commands:
   sapm:
     description: The main command
     permission: sapm.command
     usage: /<command> [args...]
+    permission-message: Only server operators can use this command.
 
 
 
