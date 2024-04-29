@@ -24,7 +24,7 @@ subprojects {
     }
 
     shadowJar {
-        archiveFileName.set("${project.name}-exampleplugin-${rootProject.version}.jar")
+        archiveFileName.set("${project.name}-sapm-${rootProject.version}.jar")
     }
 
     repositories {

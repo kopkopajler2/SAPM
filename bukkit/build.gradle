@@ -9,7 +9,8 @@ dependencies {
     testImplementation project(':common')
     testImplementation 'org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT'
     testImplementation 'org.jetbrains:annotations:20.1.0'
-    testImplementation 'org.mockito:mockito-core:2.1.0'
+    testImplementation 'com.github.seeseemelk:MockBukkit-v1.20:3.9.0'
+    testImplementation group: 'junit', name: 'junit', version: '4.4'
 }
 
 test {
