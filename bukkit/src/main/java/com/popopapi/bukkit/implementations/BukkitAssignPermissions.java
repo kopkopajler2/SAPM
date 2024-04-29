@@ -17,8 +17,8 @@ public class BukkitAssignPermissions {
     private final   PlayerService playerService;
     private final Plugin plugin;
 
-    public BukkitAssignPermissions(PermissionRetrieverService permissionAssignmentService,  Plugin plugin) {
-        this.permissionAssignmentService = permissionAssignmentService;
+    public BukkitAssignPermissions(PermissionRetrieverService permissionRetrieverService,  Plugin plugin) {
+        this.permissionAssignmentService = permissionRetrieverService;
         this.playerService = new PlayerService();
 
 
