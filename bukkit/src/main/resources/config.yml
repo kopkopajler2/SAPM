@@ -1,4 +1,1 @@
-# ExamplePlugin v${version}
-# Welcome to the ExamplePlugin configuration file.
-
-test-message: "Hello, world!"
+# SAPM v${version}
