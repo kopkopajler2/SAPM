@@ -28,4 +28,4 @@ A projektet az MIT licenc alatt tesszük közzé.
 
 ---
 
-További információkért látogasd meg a projekt [fejlesztői dokumentációját.](https://drive.google.com/file/d/11KvSQlbI5P5rWwmKMG9fS80QfqsQHBO8/view?usp=sharing)
+További információkért látogasd meg a projekt [fejlesztői dokumentációját.](https://drive.google.com/file/d/1c6k4PVtctWDQ8rKvwVE-jP_8CUtnDOTc/view?usp=sharing)
